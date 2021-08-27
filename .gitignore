@@ -1,0 +1,26 @@
+node_modules
+npm-debug.log
+.DS_STORE
+.envrc
+.yarnrc
+*.code-workspace
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+testenv
+dist
+
+# Ignore TCK-related files in all folders
+okta-oidc-tck*
+tck-keystore.pem
+target
+
+# package info files are generated during build and included in final artifacts
+packageInfo.js
+packageInfo.ts
+coverage
+*.tgz
+.idea/
+
+# test reports
+reports/
