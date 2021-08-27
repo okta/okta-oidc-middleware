@@ -4,10 +4,6 @@ Please help us process GitHub Issues faster by providing the following informati
 Note: If you have a question, please post it on the Okta Developer Forum (https://devforum.okta.com) instead. Issues in this repository are reserved for bug reports and feature requests.
 -->
 
-## I'm submitting this issue for the package(s):
-
-- [ ] jwt-verifier
-- [ ] oidc-middleware
 
 ## I'm submitting a:
 

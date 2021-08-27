@@ -1,5 +1,5 @@
 /**
- * Shared configuration for all okta-oidc-js packages.
+ * Configuration 
  *
  * @param {Object} overrides - (optional) Overrides specific values for the configuration object
  */
