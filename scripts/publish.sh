@@ -19,6 +19,8 @@ else
   TARGET_BRANCH=${BRANCH}
 fi
 
+pushd ./dist
+
 if ! ci-append-sha; then
   echo "ci-append-sha failed! Exiting..."
   exit ${FAILED_SETUP}
@@ -32,5 +34,7 @@ if ! npm publish --registry ${REGISTRY}; then
   echo "npm publish failed for $PACKAGE! Exiting..."
   exit ${PUBLISH_ARTIFACTORY_FAILURE}
 fi
+
+popd
 
 exit ${SUCCESS}

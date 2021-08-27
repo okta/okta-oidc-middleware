@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@okta/oidc-middleware",
   "version": "4.2.0",
   "description": "OpenId Connect middleware for authorization code flows",
@@ -16,6 +17,8 @@
   ],
   "main": "index.js",
   "scripts": {
+    "prepare": "yarn build",
+    "build": "node scripts/build.js",
     "banners": "node util/maintain-banners.js",
     "lint": "eslint .",
     "test": "yarn lint && yarn test:unit && yarn test:e2e && yarn test:integration",
@@ -48,7 +51,7 @@
   },
   "devDependencies": {
     "axios": "^0.21.1",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "dotenv": "^8.1.0",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.0",
@@ -68,6 +71,7 @@
     "protractor": "^5.4.2",
     "read-package-tree": "^5.1.6",
     "server-destroy": "^1.0.1",
+    "shelljs": "0.8.3",
     "supertest": "^6.0.1"
   },
   "resolutions": {
