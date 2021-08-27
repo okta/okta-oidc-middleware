@@ -4,11 +4,9 @@ npm-debug.log
 .envrc
 .yarnrc
 *.code-workspace
-lerna-debug.log
 yarn-debug.log*
 yarn-error.log*
 package-lock.json
-dist
 testenv
 
 # Ignore TCK-related files in all folders
@@ -24,14 +22,4 @@ coverage
 .idea/
 
 # test reports
-packages/*/reports/
-
-# android/ios related for react native
-.gradle/
-gradle/
-gradlew
-gradlew.bat
-build/
-local.properties
-*.iml
-xcuserdata/
+reports/

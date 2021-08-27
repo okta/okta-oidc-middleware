@@ -9,7 +9,7 @@
       "request": "launch",
       "protocol": "auto",
       "name": "oidc-middleware Jest",
-      "cwd": "${workspaceFolder}/packages/oidc-middleware",
+      "cwd": "${workspaceFolder}",
       "args": [
         "node_modules/.bin/jest",
         "--runInBand",

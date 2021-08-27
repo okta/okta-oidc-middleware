@@ -1,7 +1,16 @@
 #!/bin/bash -xe
 
+# Install yarn
+curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.17.3
+# Link the installed yarn to be default
+ln -sf ~/.yarn/bin/yarn /usr/bin/yarn
+
 # Add yarn to the $PATH so npm cli commands do not fail
 export PATH="${PATH}:$(yarn global bin)"
+
+# Install required node version
+export NVM_DIR="/root/.nvm"
+setup_service node v12.13.0
 
 cd ${OKTA_HOME}/${REPO}
 
@@ -31,7 +40,6 @@ OKTA_REGISTRY=${ARTIFACTORY_URL}/api/npm/npm-okta-master
 # Replace yarn registry with Okta's
 echo "Replacing $YARN_REGISTRY with $OKTA_REGISTRY within yarn.lock files..."
 sed -i "s#${YARN_REGISTRY}#${OKTA_REGISTRY}#" yarn.lock
-sed -i "s#${YARN_REGISTRY}#${OKTA_REGISTRY}#" packages/oidc-middleware/yarn.lock
 
 if ! yarn install ; then
   echo "yarn install failed! Exiting..."
@@ -41,4 +49,3 @@ fi
 # Revert the original change(s)
 echo "Replacing $OKTA_REGISTRY with $YARN_REGISTRY within yarn.lock files..."
 sed -i "s#${OKTA_REGISTRY}#${YARN_REGISTRY}#" yarn.lock
-sed -i "s#${OKTA_REGISTRY}#${YARN_REGISTRY}#" packages/oidc-middleware/yarn.lock

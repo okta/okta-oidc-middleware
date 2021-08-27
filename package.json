@@ -1,25 +1,76 @@
 {
-  "private": true,
+  "name": "@okta/oidc-middleware",
+  "version": "4.2.0",
+  "description": "OpenId Connect middleware for authorization code flows",
+  "repository": "https://github.com/okta/okta-oidc-middleware",
+  "homepage": "https://github.com/okta/okta-oidc-middleware#readme",
+  "keywords": [
+    "okta",
+    "oidc",
+    "OpenId Connect",
+    "authentication",
+    "auth"
+  ],
+  "files": [
+    "src"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "banners": "node util/maintain-banners.js",
+    "lint": "eslint .",
+    "test": "yarn lint && yarn test:unit && yarn test:e2e && yarn test:integration",
+    "pretest:e2e": "node scripts/update-se-drivers.js",
+    "test:e2e": "protractor test/e2e/protractor.conf.js",
+    "test:integration": "scripts/tck.sh 0.4.0",
+    "test:unit": "jest test/unit",
+    "start": "node test/e2e/harness/start-server.js",
+    "start:custom": "node test/e2e/harness/start-custom-login-server.js"
+  },
+  "engines": {
+    "node": "^10.13.0 || >=12.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "restoreMocks": true
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@okta/configuration-validation": "^0.4.1",
+    "body-parser": "^1.18.2",
+    "csurf": "^1.9.0",
+    "express": "^4.16.3",
+    "lodash": "^4.17.5",
+    "negotiator": "^0.6.1",
+    "node-fetch": "^2.3.0",
+    "openid-client": "3.12.2",
+    "passport": "^0.4.1",
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
     "axios": "^0.21.1",
-    "babel-eslint": "^10.1.0",
+    "babel-eslint": "^10.0.3",
     "dotenv": "^8.1.0",
+    "cookie-parser": "^1.4.5",
+    "cross-env": "^7.0.0",
+    "ejs": "^3.0.1",
     "eslint": "^6.6.0",
-    "eslint-plugin-jasmine": "^2.10.1",
+    "eslint-plugin-jasmine": "^4.1.0",
     "eslint-plugin-jest": "^23.0.3",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-protractor": "^2.1.1",
+    "express-session": "^1.15.5",
     "globby": "^6.1.0",
-    "lerna": "^4.0.0"
+    "jasmine-protractor-browser-log-reporter": "^1.0.0",
+    "jasmine-reporters": "^2.2.0",
+    "jasmine-spec-reporter": "^4.1.0",
+    "jest": "^25.1.0",
+    "nock": "^11.7.2",
+    "protractor": "^5.4.2",
+    "read-package-tree": "^5.1.6",
+    "server-destroy": "^1.0.1",
+    "supertest": "^6.0.1"
   },
-  "engines": {
-    "yarn": "^1.7.0"
-  },
-  "scripts": {
-    "banners": "util/maintain-banners.js",
-    "publish": "lerna publish --skip-npm",
-    "test": "./scripts/runTests.sh",
-    "clean": "./scripts/clean.sh",
-    "postinstall": "./scripts/installPackages.sh"
+  "resolutions": {
+    "webdriver-manager": "^12.1.4"
   }
 }
