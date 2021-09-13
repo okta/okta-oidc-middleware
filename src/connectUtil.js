@@ -99,14 +99,21 @@ connectUtil.createLoginCallbackHandler = context => {
 
   const customHandlerArity = customHandler.length;
   return (req, res, next) => {
+    const afterCustomNextHandler = (err) => {
+      if (err) {
+        next(err);
+      } else if (!res._headerSent) {
+        res.redirect(routes.loginCallback.afterCallback || req.session.returnTo || '/');
+      }
+    };
     const nextHandler = err => {
       if (err && customHandlerArity < 4) return next(err);
       switch(customHandlerArity) {
         case 4:
-          customHandler(err, req, res, next);
+          customHandler(err, req, res, afterCustomNextHandler);
           break;
         case 3:
-          customHandler(req, res, next);
+          customHandler(req, res, afterCustomNextHandler);
           break;
         default:
           throw new OIDCMiddlewareError('middlewareError', 'Your custom callback handler must request "next"');
