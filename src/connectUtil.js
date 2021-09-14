@@ -32,8 +32,8 @@ connectUtil.createOIDCRouter = context => {
   const loginCallbackPath = routes.loginCallback.path;
   const logoutPath = routes.logout.path;
 
-  oidcRouter.use(loginPath, bodyParser.urlencoded({ extended: false}), connectUtil.createLoginHandler(context));
   oidcRouter.use(loginCallbackPath, connectUtil.createLoginCallbackHandler(context));
+  oidcRouter.use(loginPath, bodyParser.urlencoded({ extended: false}), connectUtil.createLoginHandler(context));
   oidcRouter.post(logoutPath, connectUtil.createLogoutHandler(context));
 
   oidcRouter.use((err, req, res, next) => {
