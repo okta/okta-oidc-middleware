@@ -157,12 +157,21 @@ describe('callback', () => {
     });
   }
 
-  it('handles a callback', async () => {
-    await bootstrap();
+  it('handles a login callback', async () => {
+    await bootstrap({
+      routes: {
+        login: {
+          path: '/login'
+        },
+        loginCallback: {
+          path: '/login/callback'
+        }
+      }
+    });
     mockToken();
     return new Promise((resolve, reject) => {
       agent
-        .get('/authorization-code/callback')
+        .get('/login/callback')
         .query({ state, code: 'foo' })
         .set('Accept', 'application/json')
         .expect(302)
