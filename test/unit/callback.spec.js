@@ -14,7 +14,9 @@ const { ExpressOIDC } = require('../../index.js');
 describe('callback', () => {
   const issuer = 'https://foo';
   const tokenPath = '/oauth2/v1/token';
+  const authorizePath = '/oauth2/v1/authorize';
   const tokenEndpoint = `${issuer}${tokenPath}`;
+  const authorizationEndpoint = `${issuer}${authorizePath}`;
   const idToken = 'a-fake-id-token';
   const sessionKey = 'foo';
   const minimumConfig = { 
@@ -60,17 +62,26 @@ describe('callback', () => {
       return Promise.resolve();
     });
   }
+  function mockAuthorizationUrl(client) {
+    const origMethod = client.constructor.prototype.authorizationUrl;
+    mocks.authorizationUrl = jest.spyOn(client, 'authorizationUrl').mockImplementation(function(params) {
+      params.state = 'STATE';
+      return origMethod.call(this, params);
+    });
+  }
   function mockAuthenticate() {
     const origMethod = OpenIDConnectStrategy.prototype.authenticate;
     mocks.authenticate = jest.spyOn(OpenIDConnectStrategy.prototype, 'authenticate').mockImplementation(function () {
       mockValidate(this._client);
+      mockAuthorizationUrl(this._client);
       return origMethod.apply(this, arguments);
     });
   }
   function mockWellKnown() {
     const response = {
       issuer,
-      token_endpoint: tokenEndpoint
+      token_endpoint: tokenEndpoint,
+      authorization_endpoint: authorizationEndpoint,
     };
 
     mocks.wellKnown = jest.fn().mockImplementation(function(/* uri, requestBody */) {
@@ -160,6 +171,31 @@ describe('callback', () => {
           expect(res.headers.location).toBe('/');
           expect(mocks.authenticate).toHaveBeenCalledWith(expect.any(Object), expect.any(Object));
           expect(mocks.validateIdToken).toHaveBeenCalledWith({ id_token: idToken }, nonce, 'token', undefined);
+          resolve()
+        });
+    });
+  });
+
+  it('performs a login redirect', async () => {
+    await bootstrap({
+      routes: {
+        login: {
+          path: '/login'
+        },
+        loginCallback: {
+          path: '/login/callback'
+        }
+      }
+    });
+    mockToken();
+    return new Promise((resolve, reject) => {
+      agent
+        .get('/login')
+        .expect(302)
+        .end(function(err, res){
+          if (err) return reject(err);
+          expect(res.headers.location).toBe('https://foo/oauth2/v1/authorize?client_id=foo&scope=openid&response_type=code&redirect_uri=https%3A%2F%2Fapp.foo%2Flogin%2Fcallback&state=STATE');
+          nock.cleanAll();
           resolve()
         });
     });
