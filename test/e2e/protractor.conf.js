@@ -20,7 +20,7 @@ exports.config = {
   onPrepare() {
     jasmine.getEnv().addReporter(new ProtractorBrowserLogReporter());
     jasmine.getEnv().addReporter(new JUnitXmlReporter({
-      savePath: 'reports/junit',
+      savePath: 'reports/e2e',
       filePrefix: 'results',
     }));
     jasmine.getEnv().addReporter(new SpecReporter({
@@ -45,7 +45,7 @@ exports.config = {
     loggingPrefs: { "driver": "INFO", "browser": "INFO" }, // for webdriver
     chromeOptions: {
       args: [
-        '--headless',
+        ...(process.env.CI ? ['--headless'] : []),
         '--disable-gpu',
         '--window-size=800,600',
         '--no-sandbox'
