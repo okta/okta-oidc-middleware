@@ -13,6 +13,7 @@
 const EC = protractor.ExpectedConditions;
 
 module.exports = class OktaSignInPage {
+  /* eslint-disable protractor/no-repetitive-selectors */
   constructor() {
     this.username = $('[name=username]');
     this.password = $('[name=password]');
