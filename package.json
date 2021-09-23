@@ -24,12 +24,14 @@
     "lint": "eslint .",
     "lint:report": "eslint -f checkstyle -o ./reports/lint/eslint-checkstyle-result.xml .",
     "test": "yarn lint && yarn test:unit && yarn test:e2e && yarn test:integration",
-    "pretest:e2e": "node scripts/update-se-drivers.js",
+    "pretest:e2e": "node scripts/update-se-drivers.js && yarn kill:port",
+    "posttest:e2e": "yarn kill:port",
     "test:e2e": "protractor test/e2e/protractor.conf.js",
     "test:integration": "scripts/tck.sh 0.4.0",
     "test:unit": "jest",
     "start": "node test/e2e/harness/start-server.js",
-    "start:custom": "node test/e2e/harness/start-custom-login-server.js"
+    "start:custom": "node test/e2e/harness/start-custom-login-server.js",
+    "kill:port": "kill -s TERM $(lsof -t -i:8080 -sTCP:LISTEN) || true"
   },
   "engines": {
     "node": "^10.13.0 || >=12.0.0"
