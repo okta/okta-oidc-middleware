@@ -14,9 +14,9 @@ const EC = protractor.ExpectedConditions;
 
 module.exports = class OktaSignInPage {
   constructor() {
-    this.username = $('[name=username]');
-    this.password = $('[name=password]');
-    this.submit = $('#okta-signin-submit');
+    this.username = $('#okta-signin-username, [name="identifier"]');
+    this.password = $('#okta-signin-password, [name="credentials.passcode"]');
+    this.submit = $('#okta-signin-submit, [data-type="save"]');
   }
 
   async waitUntilVisible() {
