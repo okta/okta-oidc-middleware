@@ -24,8 +24,8 @@ shell.cp(`-Rf`, [`src`, `index.js`, `package.json`, `LICENSE`, `*.md`], `${NPM_D
 
 shell.echo(`Modifying final package.json`)
 const packageJSON = JSON.parse(fs.readFileSync(`./${NPM_DIR}/package.json`))
-packageJSON.private = false
-packageJSON.scripts.prepare = '';
+delete packageJSON.private
+delete packageJSON.scripts
 
 // Remove "dist/" from the entrypoint paths.
 ['main', 'module', 'types'].forEach(function (key) {
