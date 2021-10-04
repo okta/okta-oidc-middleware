@@ -18,7 +18,6 @@ This package makes it easy to get your users logged in with Okta using OpenId Co
 
 ## Release status
 
-
 This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
 
 :heavy_check_mark: The current stable major version series is: 2.x
@@ -463,6 +462,7 @@ If you desire to have a route that performs a local logout while leaving the use
 If you had the `redirect_uri` pointing to a different application than this one, replace `redirect_uri` with `loginRedirectUri`, and consider if you need to set `logoutRedirectUri`.
 
 ## Contributing
+
 We welcome contributions to all of our open-source packages. Please see the [contribution guide](https://github.com/okta/okta-oidc-middleware/blob/master/CONTRIBUTING.md) to understand how to structure a contribution.
 
 ### Installing dependencies for contributions
