@@ -55,6 +55,9 @@ describe('logout', () => {
             emit: jest.fn().mockImplementation(() => {
               throw new Error('Unexpected error');
             })
+          },
+          client: {
+            endSessionUrl: jest.fn().mockReturnValue(expectedUri)
           }
         };
         logout = forceLogoutAndRevoke(context);

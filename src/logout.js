@@ -71,9 +71,7 @@ logout.forceLogoutAndRevoke = context => {
     };
 
     // redirect to Okta to clear SSO session
-    const endOktaSessionEndpoint = `${issuer}/v1/logout?${querystring.stringify(params)}`;
+    const endOktaSessionEndpoint = context.client.endSessionUrl(params);
     return res.redirect(endOktaSessionEndpoint);
   };
 };
-
-
