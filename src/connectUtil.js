@@ -13,7 +13,6 @@
 const csrf = require('csurf');
 const passport = require('passport');
 const { Router } = require('express');
-const querystring = require('querystring');
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
 const logout = require('./logout');
@@ -73,8 +72,8 @@ connectUtil.createLoginHandler = context => {
           nonce,
           state
         };
-        const url = `${context.options.issuer}/v1/authorize?${querystring.stringify(params)}`;
-        return res.redirect(url);
+        const authorizationUrl = context.client.authorizationUrl(params);
+        return res.redirect(authorizationUrl);
       });
     }
     return passportHandler.apply(this, arguments);
