@@ -102,7 +102,7 @@ connectUtil.createLoginCallbackHandler = context => {
     const afterCustomNextHandler = (err) => {
       if (err) {
         next(err);
-      } else if (!res._headerSent) {
+      } else if (!res.writableEnded) {
         res.redirect(routes.loginCallback.afterCallback || req.session.returnTo || '/');
       }
     };
