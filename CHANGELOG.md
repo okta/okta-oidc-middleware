@@ -1,3 +1,9 @@
+# 4.4.0
+
+### Bug Fixes
+
+- [#34](https://github.com/okta/okta-oidc-middleware/pull/34) Fixes Org AS login issue
+
 # 4.2.0
 
 ### Bug Fixes
