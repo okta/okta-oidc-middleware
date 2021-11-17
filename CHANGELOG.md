@@ -4,6 +4,12 @@
 
 - [#34](https://github.com/okta/okta-oidc-middleware/pull/34) Fixes Org AS login issue
 
+# 4.3.0
+
+### Other
+
+- Release after migrating from monorepo
+
 # 4.2.0
 
 ### Bug Fixes
