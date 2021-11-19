@@ -1,7 +1,7 @@
-# 4.4.0
+# 4.3.1
 
 ### Bug Fixes
-
+- [#4](https://github.com/okta/okta-oidc-middleware/pull/4) Fix 401 error in login route handler when login callback path is child of login path
 - [#34](https://github.com/okta/okta-oidc-middleware/pull/34) Fixes Org AS login issue
 - [#3](https://github.com/okta/okta-oidc-middleware/pull/3) Call `res.redirect()` after custom `routes.loginCallback.handler`
 
