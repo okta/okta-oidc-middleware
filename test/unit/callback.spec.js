@@ -210,6 +210,34 @@ describe('callback', () => {
     });
   });
 
+  it('handles a callback with custom handler', async () => {
+    await bootstrap({
+      routes: {
+        loginCallback: {
+          afterCallback: '/profile',
+          handler: (_req, _res, next) => {
+            next();
+          }
+        }
+      }
+    });
+    mockToken();
+    return new Promise((resolve, reject) => {
+      agent
+        .get('/authorization-code/callback')
+        .query({ state, code: 'foo' })
+        .set('Accept', 'application/json')
+        .expect(302)
+        .end(function(err, res){
+          if (err) return reject(err);
+          expect(res.headers.location).toBe('/profile');
+          expect(mocks.authenticate).toHaveBeenCalledWith(expect.any(Object), expect.any(Object));
+          expect(mocks.validateIdToken).toHaveBeenCalledWith({ id_token: idToken }, nonce, 'token', undefined);
+          resolve()
+        });
+    });
+  });
+
   it('respects the "timeout" option when making a call to /token', async () => {
     jest.useFakeTimers();
     const timeout = 30000; // should be greater than test timeout

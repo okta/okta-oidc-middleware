@@ -3,6 +3,7 @@
 ### Bug Fixes
 
 - [#34](https://github.com/okta/okta-oidc-middleware/pull/34) Fixes Org AS login issue
+- [#3](https://github.com/okta/okta-oidc-middleware/pull/3) Call `res.redirect()` after custom `routes.loginCallback.handler`
 
 # 4.3.0
 
