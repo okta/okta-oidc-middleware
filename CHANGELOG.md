@@ -4,13 +4,14 @@
 
 - [#34](https://github.com/okta/okta-oidc-middleware/pull/34) Fixes Org AS login issue
 - [#3](https://github.com/okta/okta-oidc-middleware/pull/3) Call `res.redirect()` after custom `routes.loginCallback.handler`
+- [#37](https://github.com/okta/okta-oidc-middleware/pull/37) fix: `.logout` no longer throws error without valid credentials
 
 # 4.3.0
 
 ### Other
 
 - Release after migrating from monorepo
-
+- 
 # 4.2.0
 
 ### Bug Fixes
