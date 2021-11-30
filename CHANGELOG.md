@@ -1,3 +1,9 @@
+# 4.3.0
+
+### Bug Fixes
+
+- [#37](https://github.com/okta/okta-oidc-middleware/pull/37) fix: `.logout` no longer throws error without valid credentials
+
 # 4.2.0
 
 ### Bug Fixes
