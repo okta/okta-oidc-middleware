@@ -73,7 +73,16 @@ describe('logout', () => {
         };
       });
     
-    
+      describe('logout without active session', () => {
+        it('returns 401', async () => {
+          res.sendStatus = jest.fn();
+          req.userContext = undefined;
+          await logout(req, res);
+          expect(fetch).not.toHaveBeenCalled();
+          expect(res.sendStatus).toHaveBeenCalledWith(401);
+        });
+      });
+
       describe('revoke tokens', () => {
         it('revokes refresh_token', async () => {
           const tokenVal = 'sometoken';
