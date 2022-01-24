@@ -1,3 +1,9 @@
+# 4.5.0
+
+### Features
+
+- [#40](https://github.com/okta/okta-oidc-middleware/pull/34) Allows passing `loginHint` to `ensureAuthenticated`
+
 # 4.4.0
 
 ### Bug Fixes
