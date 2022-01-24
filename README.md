@@ -217,7 +217,7 @@ oidc.on('error', err => {
 });
 ```
 
-#### oidc.ensureAuthenticated({ redirectTo?: '/uri' })
+#### oidc.ensureAuthenticated({ redirectTo?: '/uri', loginHint?: 'username' })
 
 Use this to protect your routes. If not authenticated, this will redirect to the login route and trigger the authentication flow. If the request prefers JSON then a 401 error response will be sent.
 
@@ -228,6 +228,8 @@ app.get('/protected', oidc.ensureAuthenticated(), (req, res) => {
 ```
 
 The `redirectTo` option can be used to redirect the user to a specific URI on your site after a successful authentication callback.
+
+Passing `loginHint` option will append `login_hint` query parameter to URL when redirecting to Okta-hosted sign in page.
 
 #### oidc.forceLogoutAndRevoke()
 
