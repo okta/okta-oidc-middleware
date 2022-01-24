@@ -47,6 +47,17 @@ function customizeUserAgent(options) {
   return options;
 }
 
+function appendOptionsToQuery(url, options) {
+  if (options.loginHint) {
+    const urlObject = new URL(url, 'relative:///');
+    const searchParams = urlObject.searchParams;
+    searchParams.append('login_hint', options.loginHint);
+    // extend original query (if any)
+    return `${url.split('?').shift()}${urlObject.search}`;
+  }
+  return url;
+}
+
 oidcUtil.createClient = context => {
   const {
     issuer,
@@ -133,9 +144,8 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
         if (req.session) {
           req.session.returnTo = req.originalUrl || req.url;
         }
-
         const url = options.redirectTo || context.options.routes.login.path;
-        return res.redirect(url);
+        return res.redirect(appendOptionsToQuery(url, options));
       }
 
       next();

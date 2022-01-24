@@ -2,6 +2,16 @@ const passport = require('passport');
 const OpenIdClient = require('openid-client');
 const oidcUtil = require('../../src/oidcUtil.js');
 
+jest.mock('negotiator', function () {
+  return function () {
+      return {
+        mediaType: function () {
+          return 'text/html';
+        }
+      }
+    }
+});
+
 function createMockOpenIdClient(config={}) {
   const Issuer = OpenIdClient.Issuer;
 
@@ -94,6 +104,21 @@ describe('oidcUtil', function () {
         expect(error).toEqual(undefined);
       };
       passportStrategy.authenticate(createMockRedirectRequest());
-    })
-  })
+    });
+  });
+
+  describe('ensureAuthenticated', () => {
+    it('appends known options to redirect URL', () => {
+      const requestHandler = oidcUtil.ensureAuthenticated({}, {
+        redirectTo: '/login',
+        loginHint: 'username@org.org'
+      });
+      let req = jest.mock();
+      let res = {
+        redirect: jest.fn()
+      };
+      requestHandler(req, res, () => {});
+      expect(res.redirect).toBeCalledWith('/login?login_hint=username%40org.org');
+    });
+  });
 })

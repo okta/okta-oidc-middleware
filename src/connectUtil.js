@@ -44,8 +44,8 @@ connectUtil.createOIDCRouter = context => {
 };
 
 connectUtil.createLoginHandler = context => {
-  const passportHandler = passport.authenticate('oidc');
   const csrfProtection = csrf();
+  const ALLOWED_OPTIONS = ['login_hint'];
 
   return function(req, res, next) {
     const viewHandler = context.options.routes.login.viewHandler;
@@ -76,6 +76,15 @@ connectUtil.createLoginHandler = context => {
         return res.redirect(authorizationUrl);
       });
     }
+    const options = Object.keys(req.query).reduce((opts, option) => {
+      return ALLOWED_OPTIONS.includes(option) ? {
+        ...opts,
+        [option]: req.query[option]
+      } : {
+        ...opts
+      }
+    }, {})
+    const passportHandler = passport.authenticate('oidc', options);
     return passportHandler.apply(this, arguments);
   }
 };
