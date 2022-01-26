@@ -120,5 +120,29 @@ describe('oidcUtil', function () {
       requestHandler(req, res, () => {});
       expect(res.redirect).toBeCalledWith('/login?login_hint=username%40org.org');
     });
+
+    it('appends `appBaseUrl` option to redirect URL', () => {
+      const options = {
+        appBaseUrl: 'http://localhost:56789',
+        routes: {
+          login: {
+            path: '/foo'
+          }
+        }
+      };
+
+      const context = {
+        options,
+        client: createMockOpenIdClient()
+      };
+
+      const requestHandler = oidcUtil.ensureAuthenticated(context);
+      let req = jest.mock();
+      let res = {
+        redirect: jest.fn()
+      };
+      requestHandler(req, res, () => {});
+      expect(res.redirect).toBeCalledWith('http://localhost:56789/foo');
+    });
   });
 })

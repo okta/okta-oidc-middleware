@@ -144,7 +144,7 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
         if (req.session) {
           req.session.returnTo = req.originalUrl || req.url;
         }
-        const url = options.redirectTo || context.options.routes.login.path;
+        const url = options.redirectTo || (new URL(context.options.routes.login.path, context.options.appBaseUrl)).href;
         return res.redirect(appendOptionsToQuery(url, options));
       }
 
