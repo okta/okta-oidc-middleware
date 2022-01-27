@@ -2,7 +2,11 @@
 
 ### Features
 
-- [#40](https://github.com/okta/okta-oidc-middleware/pull/34) Allows passing `loginHint` to `ensureAuthenticated`
+- [#40](https://github.com/okta/okta-oidc-middleware/pull/40) Allows passing `loginHint` to `ensureAuthenticated`
+
+### Bug Fixes
+
+- [#42](https://github.com/okta/okta-oidc-middleware/pull/42) Fixes `appBaseUrl` option not prepending to login redirect url
 
 # 4.4.0
 
