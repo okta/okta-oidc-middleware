@@ -1,3 +1,9 @@
+# 4.5.1
+
+### Bug Fixes
+
+- [#43](https://github.com/okta/okta-oidc-middleware/pull/43) fix: correctly preprends `appBaseUrl` to redirect url when `appBaseUrl` contains a base path
+
 # 4.5.0
 
 ### Features
