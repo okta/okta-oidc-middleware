@@ -39,7 +39,8 @@ module.exports = class ExpressOIDC extends EventEmitter {
    * @param {string} options.issuer The OpenId Connect issuer
    * @param {string} options.client_id This app's OpenId Connect client id
    * @param {string} options.client_secret This app's OpenId Connect client secret
-   * @param {string} options.loginRedirectUri The location of the login authorization callback if not redirecting to this app 
+   * @param {boolean} [options.usePKCE=false] Use PKCE, client secret doesn't need to be provided if set to true
+   * @param {string} options.loginRedirectUri The location of the login authorization callback if not redirecting to this app
    * @param {string} options.logoutRedirectUri The location of the logout callback if not redirecting to this app
    * @param {string} [options.scope=openid] The scopes that will determine the claims on the tokens
    * @param {string} [options.response_type=code] The OpenId Connect response type
@@ -60,6 +61,7 @@ module.exports = class ExpressOIDC extends EventEmitter {
       issuer,
       client_id,
       client_secret,
+      usePKCE,
       appBaseUrl,
       loginRedirectUri,
       logoutRedirectUri,
@@ -73,7 +75,7 @@ module.exports = class ExpressOIDC extends EventEmitter {
     assertClientId(client_id);
 
     // Validate the client_secret param
-    assertClientSecret(client_secret);
+    !usePKCE && assertClientSecret(client_secret);
 
     // Validate the appBaseUrl param
     assertAppBaseUrl(appBaseUrl);

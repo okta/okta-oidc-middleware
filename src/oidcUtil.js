@@ -63,6 +63,7 @@ oidcUtil.createClient = context => {
     issuer,
     client_id,
     client_secret,
+    usePKCE,
     loginRedirectUri: redirect_uri,
     maxClockSkew,
     timeout
@@ -76,13 +77,20 @@ oidcUtil.createClient = context => {
 
   return Issuer.discover(issuer +  '/.well-known/openid-configuration')
   .then(iss => {
-    const client = new iss.Client({
+    const clientMetadata = usePKCE ? {
+      client_id,
+      redirect_uris: [
+        redirect_uri
+      ],
+      token_endpoint_auth_method: "none"
+    } : {
       client_id,
       client_secret,
       redirect_uris: [
         redirect_uri
       ]
-    });
+    }
+    const client = new iss.Client(clientMetadata);
     client[custom.http_options] = options => {
       options = customizeUserAgent(options);
       options.timeout = timeout || 10000;
@@ -100,7 +108,8 @@ oidcUtil.bootstrapPassportStrategy = context => {
       scope: context.options.scope
     },
     sessionKey: context.options.sessionKey,
-    client: context.client
+    client: context.client,
+    usePKCE: context.options.usePKCE
   }, (tokenSet, callbackArg1, callbackArg2) => {
     let done;
     let userinfo;
