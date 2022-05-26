@@ -17,5 +17,11 @@ module.exports = {
   roots: [
     './test/unit'
   ],
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
+  fakeTimers: {
+    legacyFakeTimers: true
+  },
+  moduleNameMapper: {
+    'uuid': '<rootDir>/node_modules/uuid/dist/index.js'
+  }
 };
