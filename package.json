@@ -79,6 +79,6 @@
     "webdriver-manager": "^12.1.4",
     "string-length": "^5.0.1",
     "string-width": "^4.2.3",
-    "strip-ansi": "^7.0.1"
+    "strip-ansi": "^6.0.1"
   }
 }
