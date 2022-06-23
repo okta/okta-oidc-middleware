@@ -1,3 +1,9 @@
+# 4.5.2
+
+### Other
+
+- [#51](https://github.com/okta/okta-oidc-middleware/pull/51) chore(deps): upgrades vulnerable dependencies
+
 # 4.5.1
 
 ### Bug Fixes
