@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@okta/oidc-middleware",
-  "version": "4.5.1",
+  "version": "4.5.2",
   "description": "OpenId Connect middleware for authorization code flows",
   "repository": "https://github.com/okta/okta-oidc-middleware",
   "homepage": "https://github.com/okta/okta-oidc-middleware#readme",
@@ -44,19 +44,19 @@
     "express": "^4.16.3",
     "lodash": "^4.17.21",
     "negotiator": "^0.6.1",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.7",
     "openid-client": "3.12.2",
     "passport": "^0.4.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "axios": "^0.21.1",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.17.0",
+    "axios": "^0.27.2",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.0",
     "dotenv": "^8.1.0",
-    "ejs": "^3.0.1",
-    "eslint": "^6.6.0",
+    "ejs": "^3.0.8",
+    "eslint": "^8.16.0",
     "eslint-plugin-jasmine": "^4.1.0",
     "eslint-plugin-jest": "^23.0.3",
     "eslint-plugin-promise": "^4.2.1",
@@ -64,18 +64,20 @@
     "express-session": "^1.15.5",
     "globby": "^6.1.0",
     "jasmine-protractor-browser-log-reporter": "^1.0.0",
-    "jasmine-reporters": "^2.2.0",
+    "jasmine-reporters": "^2.5.0",
     "jasmine-spec-reporter": "^4.1.0",
-    "jest": "^25.1.0",
-    "jest-junit": "^11.1.0",
-    "nock": "^11.7.2",
-    "protractor": "^5.4.2",
+    "jest": "^28.1.1",
+    "jest-junit": "^13.2.0",
+    "nock": "^11.9.1",
+    "protractor": "^7.0.0",
     "read-package-tree": "^5.1.6",
     "server-destroy": "^1.0.1",
-    "shelljs": "0.8.3",
+    "shelljs": "0.8.5",
     "supertest": "^6.0.1"
   },
   "resolutions": {
-    "webdriver-manager": "^12.1.4"
+    "webdriver-manager": "^12.1.4",
+    "strip-ansi": "^6.0.1",
+    "qs": "^6.10.0"
   }
 }
