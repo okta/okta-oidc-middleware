@@ -66,7 +66,7 @@
     "jasmine-protractor-browser-log-reporter": "^1.0.0",
     "jasmine-reporters": "^2.5.0",
     "jasmine-spec-reporter": "^4.1.0",
-    "jest": "^28.1.1",
+    "jest": "^26.6.3",
     "jest-junit": "^13.2.0",
     "nock": "^11.9.1",
     "protractor": "^7.0.0",
