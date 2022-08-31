@@ -53,6 +53,10 @@ module.exports = class DemoServer {
       res.send(JSON.stringify(req.userContext));
     });
 
+    app.get('/*', oidc.ensureAuthenticated(), (req, res) => {
+      res.send(JSON.stringify(req.userContext));
+    });
+
     return new Promise((resolve, reject) => {
       oidc.on('error', err => {
         console.log('Unable to start the server', err);

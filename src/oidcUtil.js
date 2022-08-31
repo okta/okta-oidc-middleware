@@ -138,10 +138,14 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
     if (isAuthenticated) {
       return next();
     }
+    console.log('here1')
     const negotiator = new Negotiator(req);
     if (negotiator.mediaType() === 'text/html') {
+      console.log('here2')
       if (!isAuthenticated) {
         if (req.session) {
+          console.log('here3')
+          console.log(req.originalUrl, req.url)
           req.session.returnTo = req.originalUrl || req.url;
         }
         let url = options.redirectTo;
