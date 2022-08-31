@@ -144,5 +144,22 @@ describe('oidcUtil', function () {
       requestHandler(req, res, () => {});
       expect(res.redirect).toBeCalledWith('http://localhost:56789/foo');
     });
+
+    it('strips leading slashes to prevent open redirects', () => {
+      // see OKTA-499372
+      const requestHandler = oidcUtil.ensureAuthenticated({}, {
+        redirectTo: '/login'
+      });
+      const req = {
+        session: {},
+        url: '//okta.com'
+      };
+      const res = {
+        redirect: jest.fn()
+      };
+      requestHandler(req, res, () => {});
+      expect(res.redirect).toHaveBeenCalledWith('/login');
+      expect(req.session.returnTo).toBe('/okta.com');
+    });
   });
 })

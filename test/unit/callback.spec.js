@@ -267,27 +267,4 @@ describe('callback', () => {
         });
     });  
   });
-
-  xit('open redirect', async () => {
-    await bootstrap();
-
-    // const mw = (req, res, next) => {
-    //   req.session.returnTo 
-    // }
-
-    app.get('/*', oidc.ensureAuthenticated(), (req, res) => {
-      console.log('send 200')
-      res.sendStatus(200);
-    });
-
-    const res = await agent
-      .get('//okta.com')
-      .set('Accept', 'text/html')
-      .expect(302)
-      // .expect('Location', minimumConfig.appBaseUrl)
-
-    console.log(res);
-  });
-
-
 });

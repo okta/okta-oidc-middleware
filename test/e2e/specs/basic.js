@@ -15,7 +15,7 @@ const constants = require('../util/constants');
 const OktaSignInPage = require('../page-objects/OktaSignInPage');
 const ProtectedPage = require('../page-objects/ProtectedPage');
 const HomePage = require('../page-objects/HomePage');
-const EC = protractor.ExpectedConditions;
+
 
 browser.waitForAngularEnabled(false);
 
@@ -81,7 +81,8 @@ describe('Basic login redirect', () => {
 
   it('should handle open redirect attempt gracefully', async () => {
     // attempt to instigate an open redirect to okta.com 
-    await browser.get(constants.BASE_URI + '//okta.com');
+    const privatePage = new ProtectedPage('//okta.com');
+    await privatePage.load();
 
     // we're not logged in, so we should redirect
     const signInPage = new OktaSignInPage();
@@ -92,7 +93,8 @@ describe('Basic login redirect', () => {
     });
 
     // wait for protected page to appear with contents
-    await browser.wait(EC.urlIs(constants.BASE_URI + '/okta.com'), 10000, 'wait for protected url');
+    // NOTE: may see failure here if open redirect occurs (see OKTA-499372)
+    await privatePage.waitUntilVisible();
   
     expect(privatePage.getBodyText()).toContain('sub');
 
