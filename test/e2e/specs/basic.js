@@ -78,9 +78,9 @@ describe('Basic login redirect', () => {
     await signInPage.waitUntilVisible();
   });
 
-  it('should redirect to Okta if login is required, then return to the protected page', async () => {
+  it('should handle open redirect attempt gracefully', async () => {
     // attempt to instigate an open redirect to okta.com 
-    await browser.get('//okta.com');
+    await browser.get(constants.BASE_URI + '//okta.com');
 
     // we're not logged in, so we should redirect
     const signInPage = new OktaSignInPage();
