@@ -10,6 +10,7 @@ const modulesRoot = path.resolve(__dirname, '../../');
 
 const Issuer = OpenIdClient.Issuer;
 const custom = OpenIdClient.custom;
+const RPError = OpenIdClient.errors.RPError;
 
 describe('new ExpressOIDC()', () => {
   const findDomainMessage = 'You can copy your domain from the Okta Developer ' +
@@ -255,7 +256,8 @@ describe('new ExpressOIDC()', () => {
       timeout: 1
     }).on('error', (e) => {
       nock.abortPendingRequests();
-      expect(e.code).toBe('ETIMEDOUT');
+      expect(e).toBeInstanceOf(RPError);
+      expect(e.message).toBe('outgoing request timed out after 1ms');
       done();
     });
   });

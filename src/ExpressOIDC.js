@@ -12,6 +12,7 @@
 
 const EventEmitter = require('events').EventEmitter;
 const merge = require('lodash/merge');
+const { errors } = require('openid-client');
 const oidcUtil = require('./oidcUtil');
 const connectUtil = require('./connectUtil');
 const logout = require('./logout');

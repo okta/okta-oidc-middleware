@@ -68,7 +68,8 @@ oidcUtil.createClient = context => {
     timeout
   } = context.options;
 
-  Issuer[custom.http_options] = function(options) {
+  //Issuer[custom.http_options] = function(options) {
+  Issuer[custom.http_options] = function(url, options) {
     options = customizeUserAgent(options);
     options.timeout = timeout || 10000;
     return options;
@@ -83,7 +84,8 @@ oidcUtil.createClient = context => {
         redirect_uri
       ]
     });
-    client[custom.http_options] = options => {
+    // client[custom.http_options] = (options) => {
+    client[custom.http_options] = (url, options) => {
       options = customizeUserAgent(options);
       options.timeout = timeout || 10000;
       return options;
@@ -100,7 +102,8 @@ oidcUtil.bootstrapPassportStrategy = context => {
       scope: context.options.scope
     },
     sessionKey: context.options.sessionKey,
-    client: context.client
+    client: context.client,
+    usePKCE: false
   }, (tokenSet, callbackArg1, callbackArg2) => {
     let done;
     let userinfo;
