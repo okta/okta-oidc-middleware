@@ -256,7 +256,7 @@ describe('callback', () => {
         .expect(401)
         .end(function(err, res){
           if (err) return reject(err);
-          expect(res.text).toContain('TimeoutError: Timeout awaiting');
+          expect(res.text).toContain('RequestError: Timeout awaiting');
           expect(res.text).toContain('for ' + timeout + 'ms');
           expect(nock.pendingMocks()).toHaveLength(1);
           expect(nock.pendingMocks()[0]).toBe('POST https://foo:443/oauth2/v1/token');

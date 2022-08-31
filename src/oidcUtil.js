@@ -35,7 +35,7 @@ function customizeUserAgent(options) {
   const headers = options.headers || {};
   let clientUserAgent = headers['User-Agent'];
   if (typeof clientUserAgent === 'string') {
-    clientUserAgent = ' ' + clientUserAgent.split(' ')[0]
+    clientUserAgent = ' ' + clientUserAgent.split(' (')[0]
   } else {
     clientUserAgent = '';
   }
@@ -68,15 +68,14 @@ oidcUtil.createClient = context => {
     timeout
   } = context.options;
 
-  //Issuer[custom.http_options] = function(options) {
-  Issuer[custom.http_options] = function(url, options) {
+  Issuer[custom.http_options] = function(options) {
     options = customizeUserAgent(options);
     options.timeout = timeout || 10000;
     return options;
   };
 
   return Issuer.discover(issuer +  '/.well-known/openid-configuration')
-  .then(iss => {
+  .then((iss) => {
     const client = new iss.Client({
       client_id,
       client_secret,
@@ -84,8 +83,8 @@ oidcUtil.createClient = context => {
         redirect_uri
       ]
     });
-    // client[custom.http_options] = (options) => {
-    client[custom.http_options] = (url, options) => {
+
+    client[custom.http_options] = (options) => {
       options = customizeUserAgent(options);
       options.timeout = timeout || 10000;
       return options;
