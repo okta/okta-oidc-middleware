@@ -15,6 +15,7 @@ const constants = require('../util/constants');
 const OktaSignInPage = require('../page-objects/OktaSignInPage');
 const ProtectedPage = require('../page-objects/ProtectedPage');
 const HomePage = require('../page-objects/HomePage');
+const EC = protractor.ExpectedConditions;
 
 browser.waitForAngularEnabled(false);
 
