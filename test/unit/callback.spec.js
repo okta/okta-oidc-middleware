@@ -94,22 +94,19 @@ describe('callback', () => {
     .reply(mocks.wellKnown);
   }
 
-  function mockToken(handlerFn, delay=0) {
+  function mockToken(handlerFn) {
     const response = {
       id_token: idToken
     };
-    //mocks.token = handlerFn || jest.fn(async function(uri, requestBody, cb) {
-    mocks.token = jest.fn(async function(uri, requestBody, cb) {
+    mocks.token = handlerFn || jest.fn(async function(uri, requestBody, cb) {
       return cb(null, [
         200,
         JSON.stringify(response)
       ]);
     });
 
-
     interceptors.token = nock(issuer)
     .post(tokenPath)
-    .delayConnection(delay)
     .reply(mocks.token);
   }
 
@@ -239,22 +236,18 @@ describe('callback', () => {
     });
   });
 
-
-  // https://github.com/visionmedia/supertest/issues/727
-  // https://github.com/visionmedia/supertest/issues/785
   it('respects the "timeout" option when making a call to /token', async () => {
-    // jest.useFakeTimers();
+    jest.useFakeTimers();
     const timeout = 30000; // should be greater than test timeout
     await bootstrap({
-      timeout
+      timeout: 30000
     });
-
     // eslint-disable-next-line no-unused-vars
-    mockToken(jest.fn(function(uri, requestBody, cb) {
+    mockToken(jest.fn(async function(uri, requestBody, cb) {
       // never call the cb. this request will timeout.
       // advance clock beyond timeout threshold.
-      // jest.advanceTimersByTime(timeout + 1000);
-    }), timeout + 1000);
+      jest.advanceTimersByTime(timeout + 1000);
+    }));
     return new Promise((resolve, reject) => {
       agent
         .get('/authorization-code/callback')
@@ -262,10 +255,8 @@ describe('callback', () => {
         .set('Accept', 'application/json')
         .expect(401)
         .end(function(err, res){
-          // console.log(err);
-          // console.log(res.text)
           if (err) return reject(err);
-          expect(res.text).toContain('RequestError: Timeout awaiting');
+          expect(res.text).toContain('TimeoutError: Timeout awaiting');
           expect(res.text).toContain('for ' + timeout + 'ms');
           expect(nock.pendingMocks()).toHaveLength(1);
           expect(nock.pendingMocks()[0]).toBe('POST https://foo:443/oauth2/v1/token');
@@ -273,5 +264,7 @@ describe('callback', () => {
           resolve()
         });
     });  
-  });
+  })
+
+
 });
