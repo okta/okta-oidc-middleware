@@ -97,7 +97,7 @@ describe('Basic login redirect', () => {
     // wait for protected page to appear with contents
     // NOTE: may see failure here if open redirect occurs (see OKTA-499372)
     try {
-      await privatePage.waitUntilVisible(path.slice(1));   // leading '/' will be stripped off
+      await privatePage.waitUntilVisible(constants.BASE_URI + path.slice(1));   // leading '/' will be stripped off
     }
     catch (err) {
       console.log(path.slice(1))
