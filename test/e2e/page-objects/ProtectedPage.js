@@ -24,7 +24,8 @@ module.exports = class ProtectedPage {
   }
 
   async waitUntilVisible(path=this.path) {
-    await browser.wait(EC.urlIs(constants.BASE_URI + path), 10000, 'wait for protected url');
+    console.log(path);
+    await browser.wait(EC.urlIs(constants.BASE_URI + path), 10000, 'wait for protected url' + path);
   }
 
   async getBodyText() {
