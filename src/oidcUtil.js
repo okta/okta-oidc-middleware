@@ -41,10 +41,13 @@ function customizeUserAgent(options) {
   }
 
   const userAgent = `${pkg.name}/${pkg.version}${clientUserAgent} node/${process.versions.node} ${os.platform()}/${os.release()}`;
-  headers['User-Agent'] = userAgent;
-
-  options.headers = headers;
-  return options;
+  return {
+    ...options,
+    headers: {
+      ...headers,
+      'User-Agent': userAgent
+    }
+  }
 }
 
 function appendOptionsToQuery(url, options) {
