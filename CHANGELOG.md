@@ -1,3 +1,7 @@
+# 4.6
+
+-[#53](https://github.com/okta/okta-oidc-middleware/pull/53) Fix: prevents open redirects
+
 # 4.5.1
 
 ### Bug Fixes
