@@ -15,7 +15,6 @@ const constants = require('../util/constants');
 const OktaSignInPage = require('../page-objects/OktaSignInPage');
 const ProtectedPage = require('../page-objects/ProtectedPage');
 const HomePage = require('../page-objects/HomePage');
-const { browser } = require('protractor');
 
 
 browser.waitForAngularEnabled(false);
@@ -96,15 +95,8 @@ describe('Basic login redirect', () => {
 
     // wait for protected page to appear with contents
     // NOTE: may see failure here if open redirect occurs (see OKTA-499372)
-    try {
-      await privatePage.waitUntilVisible(constants.BASE_URI + path.slice(1));   // leading '/' will be stripped off
-    }
-    catch (err) {
-      console.log(path.slice(1))
-      console.log(await browser.getCurrentUrl());
-      throw err;
-    }
-  
+    await privatePage.waitUntilVisible(constants.BASE_URI + path.slice(1));   // leading '/' will be stripped off
+
     expect(privatePage.getBodyText()).toContain('sub');
 
     // Default response_type of library should contain an accessToken and idToken
@@ -119,9 +111,9 @@ describe('Basic login redirect', () => {
     expect(homePage.getBodyText()).toContain('Welcome home');
 
     // navigate to Okta logout and follow redirects
-    await homePage.performLogout(); 
+    await homePage.performLogout();
     await homePage.waitUntilVisible(); // after all redirects
-    
+
     expect(browser.getPageSource()).not.toContain('Welcome home');
   });
 });
