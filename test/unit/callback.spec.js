@@ -266,7 +266,5 @@ describe('callback', () => {
           resolve()
         });
     });  
-  })
-
-
+  });
 });

@@ -142,7 +142,8 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
     if (negotiator.mediaType() === 'text/html') {
       if (!isAuthenticated) {
         if (req.session) {
-          req.session.returnTo = req.originalUrl || req.url;
+          // collapse any leading slashes to a single slash to prevent open redirects (OKTA-499372)
+          req.session.returnTo = (req.originalUrl || req.url).replace(/^\/+/, '/');
         }
         let url = options.redirectTo;
         if (!url) {

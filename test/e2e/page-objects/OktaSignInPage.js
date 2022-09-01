@@ -24,6 +24,8 @@ module.exports = class OktaSignInPage {
   }
 
   async signIn({username, password}) {
+    await this.username.clear();
+    await this.password.clear();
     await this.username.sendKeys(username);
     await this.password.sendKeys(password);
     await this.submit.click();

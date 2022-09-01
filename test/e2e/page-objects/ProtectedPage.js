@@ -14,16 +14,17 @@ const constants = require('../util/constants');
 const EC = protractor.ExpectedConditions;
 
 module.exports = class ProtectedPage {
-  constructor() {
+  constructor(path) {
     this.body = $('body');
+    this.path = constants.BASE_URI + (path || '/protected');
   }
 
   async load() {
-    await browser.get('/protected');
+    await browser.get(this.path);
   }
 
-  async waitUntilVisible() {
-    await browser.wait(EC.urlIs(constants.BASE_URI + '/protected'), 10000, 'wait for protected url');
+  async waitUntilVisible(path=this.path) {
+    await browser.wait(EC.urlIs(path), 10000, 'wait for protected url (' + path + ')');
   }
 
   async getBodyText() {
