@@ -81,7 +81,7 @@ describe('Basic login redirect', () => {
 
   it('should handle open redirect attempt gracefully', async () => {
     // attempt to instigate an open redirect to okta.com 
-    const privatePage = new ProtectedPage('//okta.com');
+    const privatePage = new ProtectedPage(constants.BASE_URI + '//okta.com');
     await privatePage.load();
 
     // we're not logged in, so we should redirect
