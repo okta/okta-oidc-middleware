@@ -24,6 +24,7 @@ module.exports = class ProtectedPage {
   }
 
   async waitUntilVisible(path=this.path) {
+    console.log(path);
     await browser.wait(EC.urlIs(path), 10000, 'wait for protected url (' + path + ')');
   }
 

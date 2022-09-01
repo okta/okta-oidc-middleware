@@ -15,6 +15,7 @@ const constants = require('../util/constants');
 const OktaSignInPage = require('../page-objects/OktaSignInPage');
 const ProtectedPage = require('../page-objects/ProtectedPage');
 const HomePage = require('../page-objects/HomePage');
+const { browser } = require('protractor');
 
 
 browser.waitForAngularEnabled(false);
@@ -95,7 +96,14 @@ describe('Basic login redirect', () => {
 
     // wait for protected page to appear with contents
     // NOTE: may see failure here if open redirect occurs (see OKTA-499372)
-    await privatePage.waitUntilVisible(path.slice(1));   // leading '/' will be stripped off
+    try {
+      await privatePage.waitUntilVisible(path.slice(1));   // leading '/' will be stripped off
+    }
+    catch (err) {
+      console.log(path.slice(1))
+      console.log(browser.getCurrentUrl());
+      throw err;
+    }
   
     expect(privatePage.getBodyText()).toContain('sub');
 
