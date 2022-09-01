@@ -82,7 +82,7 @@ describe('Basic login redirect', () => {
   it('should handle open redirect attempt gracefully', async () => {
     // attempt to instigate an open redirect to okta.com
     const path = '//okta.com'
-    const privatePage = new ProtectedPage(constants.BASE_URI + path);
+    const privatePage = new ProtectedPage(path);
     await privatePage.load();
 
     // we're not logged in, so we should redirect
@@ -95,7 +95,7 @@ describe('Basic login redirect', () => {
 
     // wait for protected page to appear with contents
     // NOTE: may see failure here if open redirect occurs (see OKTA-499372)
-    await privatePage.waitUntilVisible(constants.BASE_URI + (path.slice(1)));   // leading '/' will be stripped off
+    await privatePage.waitUntilVisible(path.slice(1));   // leading '/' will be stripped off
   
     expect(privatePage.getBodyText()).toContain('sub');
 
