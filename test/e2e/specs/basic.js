@@ -101,7 +101,7 @@ describe('Basic login redirect', () => {
     }
     catch (err) {
       console.log(path.slice(1))
-      console.log(browser.getCurrentUrl());
+      console.log(await browser.getCurrentUrl());
       throw err;
     }
   
