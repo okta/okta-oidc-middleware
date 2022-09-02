@@ -71,7 +71,7 @@ oidcUtil.createClient = context => {
     timeout
   } = context.options;
 
-  Issuer[custom.http_options] = function(options) {
+  Issuer[custom.http_options] = function(_, options) {
     options = customizeUserAgent(options);
     options.timeout = timeout || 10000;
     return options;

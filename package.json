@@ -45,7 +45,7 @@
     "lodash": "^4.17.21",
     "negotiator": "^0.6.1",
     "node-fetch": "^2.6.7",
-    "openid-client": "4",
+    "openid-client": "5",
     "passport": "^0.6.0",
     "uuid": "^8.3.2"
   },

@@ -256,8 +256,8 @@ describe('new ExpressOIDC()', () => {
       timeout: 1
     }).on('error', (e) => {
       nock.abortPendingRequests();
-      expect(e.code).toBe('ETIMEDOUT');
-      expect(e.message).toBe('Timeout awaiting \'request\' for 1ms');
+      expect(e.name).toBe(RPError.name);
+      expect(e.message).toMatch(/time.*out/i);
       done();
     });
   });
