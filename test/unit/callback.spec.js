@@ -107,7 +107,7 @@ describe('callback', () => {
 
     interceptors.token = nock(issuer)
     .post(tokenPath)
-    .socketDelay(timeout || 0)
+    .delay(timeout || 0)
     .reply(mocks.token);
   }
 
@@ -238,14 +238,14 @@ describe('callback', () => {
   });
 
   it('respects the "timeout" option when making a call to /token', async () => {
-    const timeout = 30000; // should be greater than test timeout
+    const requestDelay = 20000; // should be greater than test timeout
     await bootstrap({
-      timeout: 30000
+      timeout: 10000
     });
     // eslint-disable-next-line no-unused-vars
     mockToken(jest.fn(async function(uri, requestBody, cb) {
-      return cb(null, [500])
-    }), timeout);
+      return cb(null, [500]);
+    }), requestDelay);
     return new Promise((resolve, reject) => {
       agent
         .get('/authorization-code/callback')
@@ -256,6 +256,7 @@ describe('callback', () => {
           if (err) return reject(err);
           expect(res.text).toContain('Unauthorized');
           nock.cleanAll();
+          nock.abortPendingRequests();
           resolve()
         });
     });  
