@@ -10,24 +10,33 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-const EC = protractor.ExpectedConditions;
+const EC = require("wdio-wait-for");
 
 module.exports = class OktaSignInPage {
-  constructor() {
-    this.username = $('#okta-signin-username, [name="identifier"]');
-    this.password = $('#okta-signin-password, [name="credentials.passcode"]');
-    this.submit = $('#okta-signin-submit, [data-type="save"]');
+  constructor() {}
+
+  get username() {
+    return $('#okta-signin-username, [name="identifier"]');
+  }
+
+  get password() {
+    return $('#okta-signin-password, [name="credentials.passcode"]');
+  }
+
+  get submit() {
+    return $('#okta-signin-submit, [data-type="save"]');
   }
 
   async waitUntilVisible() {
-    await browser.wait(EC.presenceOf(this.submit), 5000, 'wait for submit btn');
+    await browser.waitUntil(EC.presenceOf(await this.submit), {
+      timeout: 5000,
+      timeoutMsg: 'wait for submit btn'
+    });
   }
 
   async signIn({username, password}) {
-    await this.username.clear();
-    await this.password.clear();
-    await this.username.sendKeys(username);
-    await this.password.sendKeys(password);
-    await this.submit.click();
+    await (await this.username).setValue(username);
+    await (await this.password).setValue(password);
+    await (await this.submit).click();
   }
 }

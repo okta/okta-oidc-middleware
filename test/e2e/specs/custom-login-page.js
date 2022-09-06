@@ -15,8 +15,6 @@ const constants = require('../util/constants');
 const CustomLoginPage = require('../page-objects/CustomLoginPage');
 const HomePage = require('../page-objects/HomePage');
 
-browser.waitForAngularEnabled(false);
-
 describe('Custom login page', () => {
   let server;
   beforeEach(async () => {
@@ -63,9 +61,6 @@ describe('Custom login page', () => {
   it('should use the custom login page for authentication', async () => {
     const signInPage = new CustomLoginPage();
     await signInPage.load();
-    // TODO: is sleep needed?
-    // eslint-disable-next-line protractor/no-browser-sleep
-    await browser.sleep(3000);
     await signInPage.waitUntilVisible();
 
     // If we're testing widget i18n options (widget PDV)
@@ -84,6 +79,6 @@ describe('Custom login page', () => {
     const homePage = new HomePage();
     await homePage.waitUntilVisible();
 
-    expect(homePage.getBodyText()).toContain('Welcome home');
+    expect(await homePage.getBodyText()).toContain('Welcome home');
   });
 });

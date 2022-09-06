@@ -2,15 +2,18 @@
   "extends": [
     "eslint:recommended",
     "plugin:promise/recommended",
-    "plugin:jasmine/recommended"
+    "plugin:jasmine/recommended",
+    "plugin:wdio/recommended"
   ],
   "plugins": [
     "promise",
-    "jasmine"
+    "jasmine",
+    "wdio"
   ],
   "env": {
     "browser": false,
-    "commonjs": true
+    "commonjs": true,
+    "node": true
   },
   "parserOptions": {
     "ecmaVersion": 2017
