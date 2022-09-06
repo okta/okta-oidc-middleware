@@ -9,11 +9,29 @@
  *
  * See the License for the specific language governing permissions and limitations under the License.
  */
+const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
 
 const PORT = process.env.PORT || 8080;
 const CI = process.env.CI;
+let CHROMEDRIVER_VERSION;
+
+try {
+  const env = dotenv.parse(fs.readFileSync(path.resolve(__dirname, 'testenv')));
+  CHROMEDRIVER_VERSION = env.CHROMEDRIVER_VERSION;
+} catch (_) {
+  CHROMEDRIVER_VERSION = '89.0.4389.23';
+}
+
 const chromeOptions = {
   args: []
+};
+
+const drivers = {
+  chrome: {
+    version: CHROMEDRIVER_VERSION
+  }
 };
 
 if (CI) {
@@ -26,6 +44,7 @@ if (CI) {
       '--disable-extensions',
       '--verbose'
   ]);
+  drivers.chrome.version = CHROMEDRIVER_VERSION;
 }
 
 exports.config = {
@@ -141,7 +160,14 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['selenium-standalone'],
+    services: [['selenium-standalone', {
+      installArgs: {
+        drivers
+      },
+      args: {
+        drivers
+      }
+    }]],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
