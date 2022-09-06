@@ -96,7 +96,10 @@ connectUtil.createLoginCallbackHandler = context => {
   if (!customHandler) {
     // Passport successReturnToOrRedirect always try req.session.returnTo first if it's assigned
     // Use successRedirect field if afterCallback url is explicitly set in config
-    const redirectOptions = { failureRedirect: routes.loginCallback.failureRedirect };
+    const redirectOptions = {
+      failureRedirect: routes.loginCallback.failureRedirect,
+      keepSessionInfo: true, // preserve req.session.returnTo during session regeneration
+    };
     if (routes.loginCallback.afterCallback) {
       redirectOptions.successRedirect = routes.loginCallback.afterCallback;
     } else {
