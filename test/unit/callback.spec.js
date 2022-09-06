@@ -254,13 +254,11 @@ describe('callback', () => {
         .expect(401)
         .end(function(err, res){
           if (err) return reject(err);
-          expect(res.text).toContain('Unauthorized');
+          expect(res.text).toContain('Unauthorized'); // original RPError is not propagated by passport-strategy
           nock.cleanAll();
           nock.abortPendingRequests();
           resolve()
         });
     });  
   })
-
-
 });
