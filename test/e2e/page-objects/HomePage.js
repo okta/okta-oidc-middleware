@@ -12,29 +12,37 @@
 
 const constants = require('../util/constants');
 const util = require('../util/util');
-const EC = protractor.ExpectedConditions;
+const EC = require("wdio-wait-for");
 
 module.exports = class HomePage {
-  constructor() {
-    this.body = $('body');
+  constructor() {}
+
+  get body() {
+    return $('body');
   }
 
   async load() {
-    await browser.get(constants.BASE_URI);
+    await browser.url(constants.BASE_URI);
   }
 
   async waitUntilVisible() {
     const url = util.ensureTrailingSlash(constants.BASE_URI);
-    await browser.wait(EC.urlIs(url), 50000, 'wait for base url');
+    await browser.waitUntil(EC.urlIs(url), {
+      timeout: 50000,
+      timeoutMsg: 'wait for base url'
+    });
   }
 
   async performLogout() { 
     const logoutButton = $('#logout');
     await logoutButton.click();
-    await browser.wait(EC.not(EC.presenceOf(logoutButton)), 5000, 'wait for logout button to disappear');
+    await browser.waitUntil(EC.not(EC.presenceOf(logoutButton)), {
+      timeout: 5000,
+      timeoutMsg: 'wait for logout button to disappear'
+    });
   }
 
   async getBodyText() {
-    return this.body.getText();
+    return (await this.body).getText();
   }
 }

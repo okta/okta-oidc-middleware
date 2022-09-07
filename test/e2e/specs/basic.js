@@ -16,9 +16,6 @@ const OktaSignInPage = require('../page-objects/OktaSignInPage');
 const ProtectedPage = require('../page-objects/ProtectedPage');
 const HomePage = require('../page-objects/HomePage');
 
-
-browser.waitForAngularEnabled(false);
-
 describe('Basic login redirect', () => {
 
   let server;
@@ -54,25 +51,25 @@ describe('Basic login redirect', () => {
 
     // wait for protected page to appear with contents
     await privatePage.waitUntilVisible();
-  
-    expect(privatePage.getBodyText()).toContain('sub');
+
+    expect(await privatePage.getBodyText()).toContain('sub');
 
     // Default response_type of library should contain an accessToken and idToken
-    expect(privatePage.getBodyText()).toContain('access_token');
-    expect(privatePage.getBodyText()).toContain('id_token');
+    expect(await privatePage.getBodyText()).toContain('access_token');
+    expect(await privatePage.getBodyText()).toContain('id_token');
 
     // navigate to home page
     const homePage = new HomePage();
     await homePage.load();
     await homePage.waitUntilVisible();
 
-    expect(homePage.getBodyText()).toContain('Welcome home');
+    expect(await homePage.getBodyText()).toContain('Welcome home');
 
     // navigate to Okta logout and follow redirects
     await homePage.performLogout(); 
     await homePage.waitUntilVisible(); // after all redirects
     
-    expect(browser.getPageSource()).not.toContain('Welcome home');
+    expect(await browser.getPageSource()).not.toContain('Welcome home');
 
     // confirm that Okta now requires login
     await privatePage.load();
@@ -84,36 +81,32 @@ describe('Basic login redirect', () => {
     const path = '//okta.com'
     const privatePage = new ProtectedPage(path);
     await privatePage.load();
-
-    // we're not logged in, so we should redirect
+    // we’re not logged in, so we should redirect
     const signInPage = new OktaSignInPage();
     await signInPage.waitUntilVisible();
     await signInPage.signIn({
       username: constants.USERNAME,
       password: constants.PASSWORD
     });
-
     // wait for protected page to appear with contents
     // NOTE: may see failure here if open redirect occurs (see OKTA-499372)
-    await privatePage.waitUntilVisible(constants.BASE_URI + path.slice(1));   // leading '/' will be stripped off
+    await privatePage.waitUntilVisible(constants.BASE_URI + path.slice(1));   // leading ‘/’ will be stripped off
 
-    expect(privatePage.getBodyText()).toContain('sub');
+    expect(await privatePage.getBodyText()).toContain('sub');
 
     // Default response_type of library should contain an accessToken and idToken
-    expect(privatePage.getBodyText()).toContain('access_token');
-    expect(privatePage.getBodyText()).toContain('id_token');
-
+    expect(await privatePage.getBodyText()).toContain('access_token');
+    expect(await privatePage.getBodyText()).toContain('id_token');
     // navigate to home page
     const homePage = new HomePage();
     await homePage.load();
     await homePage.waitUntilVisible();
 
-    expect(homePage.getBodyText()).toContain('Welcome home');
-
+    expect(await homePage.getBodyText()).toContain('Welcome home');
     // navigate to Okta logout and follow redirects
     await homePage.performLogout();
     await homePage.waitUntilVisible(); // after all redirects
 
-    expect(browser.getPageSource()).not.toContain('Welcome home');
+    expect(await browser.getPageSource()).not.toContain('Welcome home');
   });
 });

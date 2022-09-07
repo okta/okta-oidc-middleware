@@ -35,16 +35,19 @@ function customizeUserAgent(options) {
   const headers = options.headers || {};
   let clientUserAgent = headers['User-Agent'];
   if (typeof clientUserAgent === 'string') {
-    clientUserAgent = ' ' + clientUserAgent.split(' ')[0]
+    clientUserAgent = ' ' + clientUserAgent.split(' (')[0]
   } else {
     clientUserAgent = '';
   }
 
   const userAgent = `${pkg.name}/${pkg.version}${clientUserAgent} node/${process.versions.node} ${os.platform()}/${os.release()}`;
-  headers['User-Agent'] = userAgent;
-
-  options.headers = headers;
-  return options;
+  return {
+    ...options,
+    headers: {
+      ...headers,
+      'User-Agent': userAgent
+    }
+  }
 }
 
 function appendOptionsToQuery(url, options) {
@@ -68,14 +71,14 @@ oidcUtil.createClient = context => {
     timeout
   } = context.options;
 
-  Issuer[custom.http_options] = function(options) {
+  Issuer[custom.http_options] = function(_, options) {
     options = customizeUserAgent(options);
     options.timeout = timeout || 10000;
     return options;
   };
 
   return Issuer.discover(issuer +  '/.well-known/openid-configuration')
-  .then(iss => {
+  .then((iss) => {
     const client = new iss.Client({
       client_id,
       client_secret,
@@ -83,7 +86,8 @@ oidcUtil.createClient = context => {
         redirect_uri
       ]
     });
-    client[custom.http_options] = options => {
+
+    client[custom.http_options] = (options) => {
       options = customizeUserAgent(options);
       options.timeout = timeout || 10000;
       return options;
@@ -100,7 +104,8 @@ oidcUtil.bootstrapPassportStrategy = context => {
       scope: context.options.scope
     },
     sessionKey: context.options.sessionKey,
-    client: context.client
+    client: context.client,
+    usePKCE: false
   }, (tokenSet, callbackArg1, callbackArg2) => {
     let done;
     let userinfo;

@@ -64,7 +64,7 @@ logout.forceLogoutAndRevoke = context => {
     const revokes = REVOKABLE_TOKENS.map( revokeIfExists );
 
     // clear local session
-    req.logout();
+    req.logout(function () {});
 
     // attempt all revokes
     await Promise.all(revokes); // these capture (emit) all rejections, no wrapping catch needed, no early fail of .all()

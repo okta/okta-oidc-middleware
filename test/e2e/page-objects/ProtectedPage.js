@@ -11,23 +11,27 @@
  */
 
 const constants = require('../util/constants');
-const EC = protractor.ExpectedConditions;
+const EC = require("wdio-wait-for");
 
 module.exports = class ProtectedPage {
-  constructor(path) {
-    this.body = $('body');
-    this.path = constants.BASE_URI + (path || '/protected');
+  constructor() {}
+
+  get body() {
+    return $('body');
   }
 
   async load() {
-    await browser.get(this.path);
+    await browser.url('/protected');
   }
 
-  async waitUntilVisible(path=this.path) {
-    await browser.wait(EC.urlIs(path), 10000, 'wait for protected url (' + path + ')');
+  async waitUntilVisible() {
+    await browser.waitUntil(EC.urlIs(constants.BASE_URI + '/protected'), {
+      timeout: 10000,
+      timeoutMsg: 'wait for protected url'
+    });
   }
 
   async getBodyText() {
-    return this.body.getText();
+    return (await this.body).getText();
   }
 }

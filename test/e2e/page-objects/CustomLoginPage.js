@@ -10,31 +10,53 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-const EC = protractor.ExpectedConditions;
+const EC = require("wdio-wait-for");
 
 module.exports = class OktaSignInPage {
-  /* eslint-disable protractor/no-repetitive-selectors */
-  constructor() {
-    this.username = $('[name=username]');
-    this.password = $('[name=password]');
-    this.submit = $('#okta-signin-submit');
-    this.banner = $('#banner');
-    this.pageTitle = $('[data-se=o-form-head]');
-    this.usernameLabel = $('[data-se=o-form-label] [for=okta-signin-username]');
-    this.passwordLabel = $('[data-se=o-form-label] [for=okta-signin-password]');
+  constructor() {}
+
+  get username() {
+    return $('[name=username]');
+  }
+
+  get password() {
+    return $('[name=password]');
+  }
+
+  get submit() {
+    return $('#okta-signin-submit');
+  }
+
+  get banner() {
+    return $('#banner');
+  }
+
+  get pageTitle() {
+    return $('[data-se=o-form-head]');
+  }
+
+  get usernameLabel() {
+    return $('[data-se=o-form-label] [for=okta-signin-username]');
+  }
+
+  get passwordLabel() {
+    return $('[data-se=o-form-label] [for=okta-signin-password]');
   }
 
   async load() {
-    await browser.get('/login');
+    await browser.url('/login');
   }
 
   async waitUntilVisible() {
-    await browser.wait(EC.presenceOf(this.banner), 50000, 'wait for banner');
+    await browser.waitUntil(EC.presenceOf(await this.banner), {
+      timeout: 50000,
+      timeoutMsg: 'wait for banner'
+    });
   }
 
   async signIn({username, password}) {
-    await this.username.sendKeys(username);
-    await this.password.sendKeys(password);
-    await this.submit.click();
+    await (await this.username).setValue(username);
+    await (await this.password).setValue(password);
+    await (await this.submit).click();
   }
 }

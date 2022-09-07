@@ -1,3 +1,10 @@
+# 5.0.0
+
+### Breaking Changes
+
+- [#]() Requires Node >= 12.19.0. Update production dependencies:
+  - `openid-client@5.1.9` (was 3.12.2)
+
 # 4.6
 
 -[#53](https://github.com/okta/okta-oidc-middleware/pull/53) Fix: prevents open redirects
