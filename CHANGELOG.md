@@ -1,6 +1,7 @@
 # 5.0.1
 
 -[#60](https://github.com/okta/okta-oidc-middleware/pull/60) chore: dependency updates
+-[#61](https://github.com/okta/okta-oidc-middleware/pull/60) chore: adds Node 18 support
 
 # 5.0.0
 
