@@ -1,3 +1,7 @@
+# 5.0.1
+
+-[#60](https://github.com/okta/okta-oidc-middleware/pull/60) chore: dependency updates
+
 # 5.0.0
 
 ### Breaking Changes
