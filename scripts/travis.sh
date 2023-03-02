@@ -6,5 +6,6 @@ if [ "${TRAVIS_EVENT_TYPE}" = "cron" ] ; then
 else
   # run the lint, unit tests
   yarn lint
+  yarn test:types
   yarn test:unit
 fi
