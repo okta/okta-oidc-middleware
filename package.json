@@ -13,9 +13,11 @@
     "auth"
   ],
   "files": [
-    "src"
+    "src",
+    "types"
   ],
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "prepare": "yarn build",
     "build": "node scripts/build.js",
@@ -28,6 +30,7 @@
     "posttest:e2e": "yarn kill:port",
     "test:e2e": "wdio run wdio.conf.js",
     "test:integration": "scripts/tck.sh 0.4.0",
+    "test:types": "tsd",
     "test:unit": "jest",
     "start": "node test/e2e/harness/start-server.js",
     "start:custom": "node test/e2e/harness/start-custom-login-server.js",
@@ -38,9 +41,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@types/csurf": "^1.11.2",
+    "@types/express": "^4.17.17",
     "@okta/configuration-validation": "^0.4.1",
     "body-parser": "^1.20.1",
-    "csurf": "^1.9.0",
+    "csurf": "^1.11.0",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
     "negotiator": "^0.6.1",
@@ -75,7 +80,9 @@
     "server-destroy": "^1.0.1",
     "shelljs": "0.8.5",
     "supertest": "^6.3.3",
-    "wdio-wait-for": "^2.2.6"
+    "wdio-wait-for": "^2.2.6",
+    "tsd": "^0.25.0",
+    "typescript": "^4.1.5"
   },
   "resolutions": {
     "webdriver-manager": "^12.1.4",
@@ -83,5 +90,17 @@
     "ua-parser-js": "^1.0.33",
     "**/recursive-readdir/minimatch": "^3.1.2",
     "**/globule/minimatch": "^3.1.2"
+  },
+  "tsd": {
+    "directory": "test/types",
+    "compilerOptions": {
+      "skipLibCheck": true,
+      "esModuleInterop": true,
+      "paths": {
+        "@okta/oidc-middleware": [
+          "."
+        ]
+      }
+    }
   }
 }
