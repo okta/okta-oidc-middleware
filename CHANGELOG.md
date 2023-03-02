@@ -1,3 +1,7 @@
+# 5.1.0
+
+-[#64](https://github.com/okta/okta-oidc-middleware/pull/64) Added type declarations
+
 # 5.0.1
 
 -[#60](https://github.com/okta/okta-oidc-middleware/pull/60) chore: dependency updates
