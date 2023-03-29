@@ -1,24 +1,22 @@
-const connectUtil = require('../../src/connectUtil.js');
-
 jest.mock('csurf', function () {
   return function () {
-
   }
 });
 
-var mockAuthenticate;
+const mockAuthenticate = jest.fn();
 jest.mock('passport', function () {
-  mockAuthenticate = jest.fn().mockReturnValue(() => {})
   return {
     authenticate: mockAuthenticate
   }
 })
 
+const connectUtil = require('../../src/connectUtil.js');
 
 
 describe('connectUtil', function () {
   describe('createLoginHandler', function () {
     it('passes known options to passport handler initializer', function () {
+      mockAuthenticate.mockReturnValue(() => {});
       const loginHandler = connectUtil.createLoginHandler({
         options: {
           routes: {
