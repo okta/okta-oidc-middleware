@@ -14,7 +14,7 @@ export CLIENT_ID=0oav2oxnlYjULp0Cy5d6
 get_vault_secret_key devex/js-idx-sdk-vars client_secret CLIENT_SECRET
 export ORG_OIE_ENABLED=true 
 export USERNAME=mary@acme.com
-get_secret prod/okta-sdk-vars/password PASSWORD
+get_vault_secret_key devex/samples-javascript password PASSWORD
 
 export CI=true
 export DBUS_SESSION_BUS_ADDRESS=/dev/null
