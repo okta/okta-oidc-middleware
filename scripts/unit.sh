@@ -1,13 +1,13 @@
 #!/bin/bash
 
-setup_service yarn 1.21.1
-
-# Add yarn to the $PATH so npm cli commands do not fail
-export PATH="${PATH}:$(yarn global bin)"
-
 # Install required node version
 export NVM_DIR="/root/.nvm"
 setup_service node v16.16.0
+
+npm install -g yarn
+
+# Add yarn to the $PATH so npm cli commands do not fail
+export PATH="${PATH}:$(yarn global bin)"
 
 cd ${OKTA_HOME}/${REPO}
 
