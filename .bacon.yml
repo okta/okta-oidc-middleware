@@ -12,7 +12,8 @@ test_suites:
       timeout: '10'
       script_name: unit
       criteria: MERGE
-      queue_name: small
+      # a different container type is required to run node20
+      queue_name: ci-queue-productionJenga-AL2023
     - name: e2e
       script_path: /root/okta/okta-oidc-middleware/scripts
       sort_order: '3'
