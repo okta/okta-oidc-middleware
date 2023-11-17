@@ -4,12 +4,8 @@
 export NVM_DIR="/root/.nvm"
 setup_service node v16.16.0
 
-echo $(npm install -g yarn)
-
-export PATH="$HOME/.yarn/bin:$PATH"
-if yarn_global_path=$(yarn global bin); then
-  export PATH="$yarn_global_path:$PATH"
-fi
+npm install -g yarn
+export PATH="$PATH:$(npm config get prefix)"
 
 # Add yarn to the $PATH so npm cli commands do not fail
 export PATH="${PATH}:$(yarn global bin)"
