@@ -48,4 +48,4 @@ test_suites:
           action: export NODE_VERSION=20
         - event: COMMAND
           name: E2E Tests
-          action: e2e
+          action: e2e.sh
