@@ -47,5 +47,8 @@ test_suites:
           name: Set Node Version
           action: export NODE_VERSION=20
         - event: COMMAND
+          name: uname
+          action: uname -a
+        - event: COMMAND
           name: E2E Tests
-          action: e2e.sh
+          action: /root/okta/okta-oidc-middleware/scripts/e2e.sh
