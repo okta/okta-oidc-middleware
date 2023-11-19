@@ -2,8 +2,12 @@
 
 source ${OKTA_HOME}/${REPO}/scripts/setup.sh
 
+setup_service node "${1:-v16.16.0}"
+
 setup_service java 1.8.222
 setup_service google-chrome-stable 89.0.4389.72-1
+
+echo $NODE_VERSION
 
 export TEST_SUITE_TYPE="junit"
 export TEST_RESULT_FILE_DIR="${REPO}/reports/e2e"
