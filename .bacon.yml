@@ -37,15 +37,9 @@ test_suites:
       queue_name: small
     - name: e2e-20
       script_path: /root/okta/okta-oidc-middleware/scripts
-      sort_order: '6'
-      timeout: '15'
+      sort_order: '3'
+      timeout: '10'
+      script_name: e2e-20
       criteria: MERGE
       # a different container type is required to run node20
       queue_name: ci-queue-productionJenga-AL2023
-      steps:
-        - event: COMMAND
-          name: Set Node Version
-          action: export NODE_VERSION=20 && cd ${OKTA_HOME}/${REPO}
-        - event: COMMAND
-          name: E2E Tests
-          action: e2e.sh

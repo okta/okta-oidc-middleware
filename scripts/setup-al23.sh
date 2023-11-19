@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # NOTE: designed to run on Amazon Linux 2023
-uname -a
+cat /etc/*release*
 
 # Install required node version
 export NVM_DIR="/root/.nvm"
