@@ -6,8 +6,7 @@ setup_service node v16.16.0
 
 npm install -g yarn
 npm config get prefix
-ls -al node_modules/.bin
-ls node_modules
+ls $(npm config get prefix)
 export PATH="$PATH:$(npm config get prefix)"
 
 # Add yarn to the $PATH so npm cli commands do not fail
