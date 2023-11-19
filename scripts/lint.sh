@@ -1,5 +1,7 @@
 #!/bin/bash -xe
 
+uname -a
+
 source ${OKTA_HOME}/${REPO}/scripts/setup.sh
 
 export TEST_SUITE_TYPE="checkstyle"
