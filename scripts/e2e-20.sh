@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-source ${OKTA_HOME}/${REPO}/scripts/setup-al23.sh 20.5.0
+source ${OKTA_HOME}/${REPO}/scripts/setup.sh 20.5.0
 
 setup_service java 1.8.222
 setup_service google-chrome-stable 89.0.4389.72-1

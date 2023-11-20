@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-source ${OKTA_HOME}/${REPO}/scripts/setup-al23.sh
+source ${OKTA_HOME}/${REPO}/scripts/setup.sh
 
 export TEST_SUITE_TYPE="junit"
 export TEST_RESULT_FILE_DIR="${REPO}/reports/unit"

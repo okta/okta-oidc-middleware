@@ -1,6 +1,4 @@
-#!/bin/bash -xe
-
-cat /etc/*release*
+#!/bin/bash
 
 source ${OKTA_HOME}/${REPO}/scripts/setup.sh
 
