@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 # Install required node version
 export NVM_DIR="/root/.nvm"
