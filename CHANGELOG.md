@@ -1,3 +1,6 @@
+# 5.2.0
+-[#74](https://github.com/okta/okta-oidc-middleware/pull/74) feat: adds Node 20 support
+
 # 5.1.0
 
 -[#64](https://github.com/okta/okta-oidc-middleware/pull/64) Added type declarations
