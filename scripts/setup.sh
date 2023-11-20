@@ -1,14 +1,26 @@
-#!/bin/bash -xe
-
-# Use the cacert bundled with centos as okta root CA is self-signed and cause issues downloading from yarn
-setup_service yarn 1.21.1 /etc/pki/tls/certs/ca-bundle.crt
-
-# Add yarn to the $PATH so npm cli commands do not fail
-export PATH="${PATH}:$(yarn global bin)"
+#!/bin/bash
 
 # Install required node version
 export NVM_DIR="/root/.nvm"
-setup_service node v16.16.0
+setup_service node "${1:-v16.16.0}"
+
+# determine the linux distro
+distro=$(awk -F= '$1=="ID" { print $2 ;}' /etc/os-release | tr -d '"')
+echo $distro
+
+# yarn installation is different, depending on distro
+if [ "$distro" = "centos" ]; then
+  # Use the cacert bundled with centos as okta root CA is self-signed and cause issues downloading from yarn
+  setup_service yarn 1.21.1 /etc/pki/tls/certs/ca-bundle.crt
+  # Add yarn to the $PATH so npm cli commands do not fail
+  export PATH="${PATH}:$(yarn global bin)"
+elif [ "$distro" = "amzn" ]; then
+  npm install -g yarn
+  export PATH="$PATH:$(npm config get prefix)/bin"
+else
+  echo "Unknown OS environment, exiting..."
+  exit ${FAILED_SETUP}
+fi
 
 cd ${OKTA_HOME}/${REPO}
 

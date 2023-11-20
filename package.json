@@ -37,7 +37,7 @@
     "kill:port": "kill -s TERM $(lsof -t -i:8080 -sTCP:LISTEN) || true"
   },
   "engines": {
-    "node": "^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.14.0"
+    "node": "^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.14.0 || ^20.5.0"
   },
   "license": "Apache-2.0",
   "dependencies": {
@@ -50,7 +50,7 @@
     "lodash": "^4.17.21",
     "negotiator": "^0.6.1",
     "node-fetch": "^2.6.7",
-    "openid-client": "^5.1.9",
+    "openid-client": "^5.6.1",
     "passport": "^0.6.0",
     "uuid": "^8.3.2"
   },
