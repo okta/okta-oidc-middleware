@@ -21,6 +21,16 @@ test_suites:
       script_name: e2e
       criteria: MERGE
       queue_name: small
+    - name: e2e-20
+      script_path: /root/okta/okta-oidc-middleware/scripts
+      sort_order: '3'
+      timeout: '10'
+      script_name: e2e
+      criteria: MERGE
+      # a different container type is required to run node20
+      queue_name: ci-queue-productionJenga-AL2023
+      script_env:
+        NODE_VER: '20.5.0'
     - name: publish
       script_path: /root/okta/okta-oidc-middleware/scripts
       sort_order: '4'
@@ -35,11 +45,3 @@ test_suites:
       script_name: semgrep
       criteria: MERGE
       queue_name: small
-    - name: e2e-20
-      script_path: /root/okta/okta-oidc-middleware/scripts
-      sort_order: '3'
-      timeout: '10'
-      script_name: e2e-20
-      criteria: MERGE
-      # a different container type is required to run node20
-      queue_name: ci-queue-productionJenga-AL2023
