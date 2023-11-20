@@ -5,8 +5,8 @@ export NVM_DIR="/root/.nvm"
 setup_service node "${1:-v16.16.0}"
 
 # NOTE: designed to run on CentOS
-distro=$(cat /etc/os-release)
-echo $distro | head -n1
+distro=$(cat /etc/os-release | head -n1)
+echo $distro
 
 if [ "$distro" = "CentOS Linux" ]; then
   # Use the cacert bundled with centos as okta root CA is self-signed and cause issues downloading from yarn
