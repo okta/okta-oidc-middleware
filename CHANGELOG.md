@@ -1,5 +1,14 @@
+# 5.4.0
+
+- [#78](https://github.com/okta/okta-oidc-middleware/pull/78) replaces deprecated `csurf` package
+
+# 5.3.0
+
+- [#77](https://github.com/okta/okta-oidc-middleware/pull/77) chore: upgrades `openid-client`
+
 # 5.2.0
--[#74](https://github.com/okta/okta-oidc-middleware/pull/74) feat: adds Node 20 support
+
+- [#74](https://github.com/okta/okta-oidc-middleware/pull/74) feat: adds Node 20 support
 
 # 5.1.0
 
