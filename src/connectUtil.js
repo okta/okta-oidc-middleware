@@ -44,7 +44,23 @@ connectUtil.createOIDCRouter = context => {
 };
 
 connectUtil.createLoginHandler = context => {
-  const { csrfSynchronisedProtection: csrfProtection } = csrf();
+  const { csrfSynchronisedProtection: csrfProtection } = csrf({
+    getTokenFromRequest: (req) => {
+      // https://www.npmjs.com/package/csurf#value (parity with csurf)
+      if (req.body._csrf) {
+        return req.body._csrf;
+      }
+      if (req.query._csrf) {
+        return req.query._csrf;
+      }
+      const headers = ['csrf-token', 'xsrf-token', 'x-csrf-token', 'x-csrf-token'];
+      for (h of headers) {
+        if (req.headers[h]) {
+          return req.headers[h];
+        }
+      }
+    }
+  });
   const ALLOWED_OPTIONS = ['login_hint'];
 
   return function(req, res, next) {
