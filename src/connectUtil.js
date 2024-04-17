@@ -54,7 +54,7 @@ connectUtil.createLoginHandler = context => {
         return req.query._csrf;
       }
       const headers = ['csrf-token', 'xsrf-token', 'x-csrf-token', 'x-csrf-token'];
-      for (h of headers) {
+      for (const h of headers) {
         if (req.headers[h]) {
           return req.headers[h];
         }
