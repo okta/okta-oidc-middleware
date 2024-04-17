@@ -1,8 +1,3 @@
-jest.mock('csurf', function () {
-  return function () {
-  }
-});
-
 const mockAuthenticate = jest.fn();
 jest.mock('passport', function () {
   return {

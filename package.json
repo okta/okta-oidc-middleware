@@ -41,18 +41,16 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@types/csurf": "^1.11.2",
-    "@types/express": "^4.17.17",
     "@okta/configuration-validation": "^0.4.1",
-    "body-parser": "^1.20.1",
-    "csurf": "^1.11.0",
-    "express": "^4.18.2",
+    "@types/express": "^4.17.21",
+    "csrf-sync": "^4.0.3",
+    "express": "^4.19.2",
     "lodash": "^4.17.21",
-    "negotiator": "^0.6.1",
-    "node-fetch": "^2.6.7",
+    "negotiator": "^0.6.3",
+    "node-fetch": "^2.6.13",
     "openid-client": "^5.6.5",
-    "passport": "^0.6.0",
-    "uuid": "^8.3.2"
+    "passport": "^0.7.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -80,9 +78,9 @@
     "server-destroy": "^1.0.1",
     "shelljs": "0.8.5",
     "supertest": "^6.3.3",
-    "wdio-wait-for": "^2.2.6",
     "tsd": "^0.25.0",
-    "typescript": "^4.1.5"
+    "typescript": "^4.1.5",
+    "wdio-wait-for": "^2.2.6"
   },
   "resolutions": {
     "webdriver-manager": "^12.1.4",
