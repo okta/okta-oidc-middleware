@@ -38,8 +38,8 @@ const configWithRoutes: ExpressOIDC.ConfigurationOptions = {
     login: {
       path: '/different/login',
       viewHandler: (req, res, _next) => {
-        // `req.csrfToken()` is available from 'csurf' package
         res.render('login', {
+          // @ts-expect-error added to req via csrf-sync
           csrfToken: req.csrfToken(),
           baseUrl: 'https://okta.foo'
         });
