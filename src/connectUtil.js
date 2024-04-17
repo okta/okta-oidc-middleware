@@ -10,11 +10,11 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-const csrf = require('csurf');
+const express = require('express');
+const csrf = require('csrf-sync').csrfSync;
 const passport = require('passport');
 const { Router } = require('express');
 const uuid = require('uuid');
-const bodyParser = require('body-parser');
 const logout = require('./logout');
 const OIDCMiddlewareError = require('./OIDCMiddlewareError');
 
@@ -32,7 +32,7 @@ connectUtil.createOIDCRouter = context => {
   const logoutPath = routes.logout.path;
 
   oidcRouter.use(loginCallbackPath, connectUtil.createLoginCallbackHandler(context));
-  oidcRouter.use(loginPath, bodyParser.urlencoded({ extended: false}), connectUtil.createLoginHandler(context));
+  oidcRouter.use(loginPath, express.urlencoded({ extended: false}), connectUtil.createLoginHandler(context));
   oidcRouter.post(logoutPath, connectUtil.createLogoutHandler(context));
 
   oidcRouter.use((err, req, res, next) => {
@@ -44,7 +44,7 @@ connectUtil.createOIDCRouter = context => {
 };
 
 connectUtil.createLoginHandler = context => {
-  const csrfProtection = csrf();
+  const { csrfSynchronisedProtection: csrfProtection } = csrf();
   const ALLOWED_OPTIONS = ['login_hint'];
 
   return function(req, res, next) {
