@@ -24,7 +24,10 @@ This library uses semantic versioning and follows Okta's [library version policy
 
 | Version | Status                    |
 | ------- | ------------------------- |
-| 2.x     | :heavy_check_mark: Stable |
+| 5.x     | :heavy_check_mark: Stable |
+| 4.x     | :heavy_check_mark: Stable |
+| 3.x     | :x: Deprecated            |
+| 2.x     | :x: Deprecated            |
 | 1.x     | :x: Deprecated            |
 | 0.x     | :x: Retired               |
 
