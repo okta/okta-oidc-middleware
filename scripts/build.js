@@ -20,7 +20,7 @@ if (shell.exec(BANNER_CMD).code !== 0) {
   shell.exit(1);
 };
 
-shell.cp(`-Rf`, [`src`, `index.js`, `package.json`, `LICENSE`, `*.md`], `${NPM_DIR}`);
+shell.cp(`-Rf`, [`src`, `types`, `index.js`, `package.json`, `LICENSE`, `*.md`], `${NPM_DIR}`);
 
 shell.echo(`Modifying final package.json`);
 const packageJSON = JSON.parse(fs.readFileSync(`./${NPM_DIR}/package.json`));
