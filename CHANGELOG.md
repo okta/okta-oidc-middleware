@@ -1,3 +1,9 @@
+# 5.4.1
+-[#82](https://github.com/okta/okta-oidc-middleware/pull/82) fix: includes types in output bundle (#75 wasn't properly backported)
+
+# 5.4.0
+-[#78](https://github.com/okta/okta-oidc-middleware/pull/78) fix: replaces deprecated `csurf` package
+
 # 5.3.1
 -[#81](https://github.com/okta/okta-oidc-middleware/pull/81) fix: includes types in output bundle (#75 wasn't properly backported)
 
