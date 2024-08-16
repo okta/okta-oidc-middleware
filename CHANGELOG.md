@@ -1,3 +1,18 @@
+# 5.4.1
+-[#82](https://github.com/okta/okta-oidc-middleware/pull/82) fix: includes types in output bundle (#75 wasn't properly backported)
+
+# 5.4.0
+-[#78](https://github.com/okta/okta-oidc-middleware/pull/78) fix: replaces deprecated `csurf` package
+
+# 5.3.1
+-[#81](https://github.com/okta/okta-oidc-middleware/pull/81) fix: includes types in output bundle (#75 wasn't properly backported)
+
+# 5.3.0
+-[#77](https://github.com/okta/okta-oidc-middleware/pull/77) upgrades openid-client
+
+# 5.2.1
+-[#75](https://github.com/okta/okta-oidc-middleware/pull/75) fix: includes types in output bundle
+
 # 5.2.0
 -[#74](https://github.com/okta/okta-oidc-middleware/pull/74) feat: adds Node 20 support
 
