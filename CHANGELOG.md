@@ -1,3 +1,6 @@
+# 5.4.2
+-[#83](https://github.com/okta/okta-oidc-middleware/pull/83) fix: upgrades `express` to pull in latest `body-parser@1.20.3`
+
 # 5.4.1
 -[#82](https://github.com/okta/okta-oidc-middleware/pull/82) fix: includes types in output bundle (#75 wasn't properly backported)
 
