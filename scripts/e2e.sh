@@ -7,6 +7,8 @@ setup_service google-chrome-stable 89.0.4389.72-1
 
 export TEST_SUITE_TYPE="junit"
 export TEST_RESULT_FILE_DIR="${REPO}/reports/e2e"
+echo ${TEST_SUITE_TYPE} > ${TEST_SUITE_TYPE_FILE}
+echo ${TEST_RESULT_FILE_DIR} > ${TEST_RESULT_FILE_DIR_FILE}
 
 export SPA_CLIENT_ID=0oa17suj5x9khaVH75d7
 export ISSUER=https://javascript-idx-sdk.okta.com/oauth2/default
@@ -25,6 +27,4 @@ if ! yarn test:e2e; then
   exit ${TEST_FAILURE}
 fi
 
-echo ${TEST_SUITE_TYPE} > ${TEST_SUITE_TYPE_FILE}
-echo ${TEST_RESULT_FILE_DIR} > ${TEST_RESULT_FILE_DIR_FILE}
 exit ${PUBLISH_TYPE_AND_RESULT_DIR}
