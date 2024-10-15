@@ -7,14 +7,16 @@ setup_service google-chrome-stable 89.0.4389.72-1
 
 export TEST_SUITE_TYPE="junit"
 export TEST_RESULT_FILE_DIR="${REPO}/reports/e2e"
+echo ${TEST_SUITE_TYPE} > ${TEST_SUITE_TYPE_FILE}
+echo ${TEST_RESULT_FILE_DIR} > ${TEST_RESULT_FILE_DIR_FILE}
 
 export SPA_CLIENT_ID=0oa17suj5x9khaVH75d7
 export ISSUER=https://javascript-idx-sdk.okta.com/oauth2/default
 export CLIENT_ID=0oav2oxnlYjULp0Cy5d6
-get_vault_secret_key devex/js-idx-sdk-vars client_secret CLIENT_SECRET
+get_terminus_secret "/" CLIENT_SECRET CLIENT_SECRET
 export ORG_OIE_ENABLED=true 
 export USERNAME=mary@acme.com
-get_vault_secret_key devex/samples-javascript password PASSWORD
+get_terminus_secret "/" PASSWORD PASSWORD
 
 export CI=true
 export DBUS_SESSION_BUS_ADDRESS=/dev/null
@@ -25,6 +27,4 @@ if ! yarn test:e2e; then
   exit ${TEST_FAILURE}
 fi
 
-echo ${TEST_SUITE_TYPE} > ${TEST_SUITE_TYPE_FILE}
-echo ${TEST_RESULT_FILE_DIR} > ${TEST_RESULT_FILE_DIR_FILE}
 exit ${PUBLISH_TYPE_AND_RESULT_DIR}
