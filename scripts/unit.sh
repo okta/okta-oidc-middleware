@@ -4,6 +4,8 @@ source ${OKTA_HOME}/${REPO}/scripts/setup.sh
 
 export TEST_SUITE_TYPE="junit"
 export TEST_RESULT_FILE_DIR="${REPO}/reports/unit"
+echo ${TEST_SUITE_TYPE} > ${TEST_SUITE_TYPE_FILE}
+echo ${TEST_RESULT_FILE_DIR} > ${TEST_RESULT_FILE_DIR_FILE}
 
 # Run unit tests on multiple node versions
 
@@ -51,6 +53,4 @@ if ! yarn test:unit --ci; then
 fi
 finish_log_group $?
 
-echo ${TEST_SUITE_TYPE} > ${TEST_SUITE_TYPE_FILE}
-echo ${TEST_RESULT_FILE_DIR} > ${TEST_RESULT_FILE_DIR_FILE}
 exit ${PUBLISH_TYPE_AND_RESULT_DIR}
