@@ -1,3 +1,6 @@
+# 5.5.0
+-[#88](https://github.com/okta/okta-oidc-middleware/pull/88) feat: adds Node 22 support
+
 # 5.4.2
 -[#83](https://github.com/okta/okta-oidc-middleware/pull/83) fix: upgrades `express` to pull in latest `body-parser@1.20.3`
 
