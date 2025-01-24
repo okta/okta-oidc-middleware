@@ -40,7 +40,7 @@ test_suites:
       # a different container type is required to run node22
       queue_name: ci-queue-productionJenga-AL2023
       script_env:
-        NODE_VER: '22.13.1'
+        NODE_VER: '22.5.1'
     - name: publish
       script_path: /root/okta/okta-oidc-middleware/scripts
       sort_order: '4'
