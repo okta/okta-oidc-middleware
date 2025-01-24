@@ -37,7 +37,7 @@
     "kill:port": "kill -s TERM $(lsof -t -i:8080 -sTCP:LISTEN) || true"
   },
   "engines": {
-    "node": "^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.14.0 || <=20.5.0"
+    "node": "^12.19.0 || ^14.15.0 || ^16.13.0 || ^18.14.0 || >=20.5.0"
   },
   "license": "Apache-2.0",
   "dependencies": {
