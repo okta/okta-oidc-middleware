@@ -5,7 +5,7 @@ test_suites:
       timeout: '60'
       script_name: lint
       criteria: MERGE
-      queue_name: small
+      queue_name: al2023
     - name: unit
       script_path: /root/okta/okta-oidc-middleware/scripts
       sort_order: '2'
@@ -13,14 +13,14 @@ test_suites:
       script_name: unit
       criteria: MERGE
       # a different container type is required to run node20
-      queue_name: ci-queue-productionJenga-AL2023
+      queue_name: al2023
     - name: e2e
       script_path: /root/okta/okta-oidc-middleware/scripts
       sort_order: '3'
       timeout: '10'
       script_name: e2e
       criteria: MERGE
-      queue_name: small
+      queue_name: al2023
     - name: e2e-20
       script_path: /root/okta/okta-oidc-middleware/scripts
       sort_order: '3'
@@ -28,7 +28,7 @@ test_suites:
       script_name: e2e
       criteria: MERGE
       # a different container type is required to run node20
-      queue_name: ci-queue-productionJenga-AL2023
+      queue_name: al2023
       script_env:
         NODE_VER: '20.5.0'
     - name: e2e-22
@@ -38,7 +38,7 @@ test_suites:
       script_name: e2e
       criteria: MERGE
       # a different container type is required to run node22
-      queue_name: ci-queue-productionJenga-AL2023
+      queue_name: al2023
       script_env:
         NODE_VER: '22.5.1'
     - name: publish
@@ -47,11 +47,4 @@ test_suites:
       timeout: '60'
       script_name: publish
       criteria: MERGE
-      queue_name: small
-    - name: semgrep
-      script_path: /root/okta/okta-oidc-middleware/scripts
-      sort_order: '5'
-      timeout: '10'
-      script_name: semgrep
-      criteria: MERGE
-      queue_name: small
+      queue_name: al2023

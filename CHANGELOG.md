@@ -1,3 +1,6 @@
+# 5.5.1
+-[#93](https://github.com/okta/okta-oidc-middleware/pull/93) fix: upgrades `express` and `lodash` to resolve CVEs
+
 # 5.5.0
 -[#88](https://github.com/okta/okta-oidc-middleware/pull/88) feat: adds Node 22 support
 
