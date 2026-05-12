@@ -170,6 +170,7 @@ Optional config:
 * **routes** - Allows customization of the generated routes. See [Customizing Routes](#customizing-routes) for details.
 * **maxClockSkew** - Defaults to 120. This is the maximum difference allowed between your server's clock and Okta's in seconds. Setting this to 0 is not recommended, because it increases the likelihood that valid jwts will fail verification due to `nbf` and `exp` issues.
 * **timeout** - Defaults to 10000 milliseconds. The HTTP max timeout for any requests to the issuer.  If a timeout exception occurs you can catch it with the `oidc.on('error', fn)` handler.
+* **agent** - Optional Node.js HTTP(S) agent used for server-side outbound requests to Okta (OIDC discovery, token/userinfo/introspection-style client calls, and revoke calls). Browser redirect traffic is not affected.
 
 #### oidc.router
 
@@ -402,25 +403,32 @@ oidc.on('error', err => console.log('could not start', err));
 
 #### Using Proxy Servers
 
-> warning: Due to the deprecation of the `request` library and the drop of support from `openid-client` library. The `using proxy servers` feature is currently broken.
+Use the `agent` option when you need custom outbound networking behavior (for example, routing Okta calls through a proxy).
 
-The underlying [openid-client][https://github.com/panva/node-openid-client] library can be configured to use the [request][https://github.com/request/request] library.  Do this by adding these lines to your app, before you call `new ExpressOIDC()`:
+The agent applies only to server-side calls made by this middleware:
+
+* OIDC discovery and issuer metadata requests
+* openid-client runtime calls (token/userinfo/introspection-style requests)
+* Logout token revocation (`/v1/revoke`) calls
+
+Example using a proxy agent:
 
 ```javascript
-const Issuer = require('openid-client').Issuer;
+const { HttpsProxyAgent } = require('https-proxy-agent);
+const { ExpressOIDC } = require('@okta/oidc-middleware);
 
-Issuer.useRequest();
+const proxyAgent = new HttpsProxyAgent('http://proxy.internal:8080);
 
 const oidc = new ExpressOIDC({
-  ...
+  issuer: 'https://{yourOktaDomain}/oauth2/default',
+  client_id: '{clientId}',
+  client_secret: '{clientSecret}',
+  appBaseUrl: 'https://{yourDomain}',
+  agent: proxyAgent
 });
 ```
 
-Once you have done that you can read the documentation on the [request][] library to learn which environment variables can be used to define your proxy settings.
-
 [devforum]: https://devforum.okta.com/
-[openid-client]: https://github.com/panva/node-openid-client
-[request]: https://github.com/request/request
 
 ### Upgrading
 
