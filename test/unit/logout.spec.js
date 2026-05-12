@@ -87,6 +87,25 @@ describe('logout', () => {
       });
 
       describe('revoke tokens', () => {
+        it('passes agent to revoke calls when configured', async () => {
+          const tokenVal = 'sometoken';
+          const agent = {};
+          context.options.agent = agent;
+          logout = forceLogoutAndRevoke(context);
+          req.userContext.tokens['refresh_token'] = tokenVal;
+          await logout(req, res);
+          expect(fetch).toHaveBeenCalledWith(revokeUri, expect.objectContaining({
+            agent
+          }));
+        });
+
+        it('does not pass agent to revoke calls when not configured', async () => {
+          const tokenVal = 'sometoken';
+          req.userContext.tokens['refresh_token'] = tokenVal;
+          await logout(req, res);
+          expect(fetch.mock.calls[0][1].agent).toBeUndefined();
+        });
+        
         it('revokes refresh_token', async () => {
           const tokenVal = 'sometoken';
           const tokenType = 'refresh_token';
