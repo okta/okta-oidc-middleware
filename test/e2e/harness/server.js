@@ -53,7 +53,7 @@ module.exports = class DemoServer {
       res.send(JSON.stringify(req.userContext));
     });
 
-    app.get('/*', oidc.ensureAuthenticated(), (req, res) => {
+    app.get('/*splat', oidc.ensureAuthenticated(), (req, res) => {
       res.send(JSON.stringify(req.userContext));
     });
 
