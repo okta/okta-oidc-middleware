@@ -48,3 +48,11 @@ test_suites:
       script_name: publish
       criteria: MERGE
       queue_name: al2023
+    - name: snyk
+      script_path: /root/okta/okta-oidc-middleware/scripts
+      script_name: snyk
+      sort_order: '5'
+      timeout: '200'
+      criteria: MAINLINE
+      queue_name: small
+      trigger: AUTO
