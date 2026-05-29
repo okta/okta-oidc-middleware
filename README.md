@@ -20,12 +20,15 @@ This package makes it easy to get your users logged in with Okta using OpenId Co
 
 This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
 
-:heavy_check_mark: The current stable major version series is: 2.x
+:heavy_check_mark: The current stable major version series is: 6.x
 
 | Version | Status                    |
 | ------- | ------------------------- |
-| 2.x     | :heavy_check_mark: Stable |
-| 1.x     | :x: Deprecated            |
+| 6.x     | :heavy_check_mark: Stable |
+| 5.x     | :warning: Retiring        |
+| 4.x     | :x: Retired               |
+| 3.x     | :x: Retired               |
+| 2.x     | :x: Retired               |
 | 0.x     | :x: Retired               |
 
 The latest release can always be found on the [releases page][github-releases].
@@ -442,6 +445,18 @@ Any value previously set for `routes.callback.defaultRedirect` should now be don
 #### from 2.x to 3.x
 
 This library no longer provides a handler for the logout callback, which was by default `/logout/callback`. The default logout callback is now `{appBaseUrl}/`, but it can be set to any URI or route handled by your application. The URI must be added to the Logout Redirect Uri list for this application from the Okta Admin console. If your app is currently configured to use `/logout/callback`, you can either change the callback URI from the Okta console or add a handler for the `/logout/callback` route. If your app is setting a value for `routes.logoutCallback.afterCallback` you should move this value to `routes.logoutCallback.path`. `routes.logoutCallback.afterCallback` has been deprecated and is no longer used.
+
+#### from 3.x to 4x
+
+Dropped support for NodeJS versions < `10.13.0`. Upgrade to NodeJS `v10.13.0` or later.
+
+#### from 4.x to 5.x
+
+Dropped support for NodeJS versions < `12.19.0`. Upgrade to NodeJS `v12.19.0` or later.
+
+#### from 5.x to 6.x
+
+The library migrates from Express `v4.x` to Express `v5.x`. Please ensure you update your application to Express v5 and verify any custom route callback handlers adhere to the `v5.x` express standards (Official migration docs hosted [here](https://expressjs.com/en/guide/migrating-5/)).
 
 ##### Straightforward Okta logout for your app
 
