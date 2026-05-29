@@ -34,8 +34,25 @@ module.exports = class OktaSignInPage {
     });
   }
 
+  async waitUntilPasswordVisible() {
+    await browser.waitUntil(async () => {
+      const passwordField = await this.password;
+      return await passwordField.isExisting() && await passwordField.isDisplayed();
+    }, {
+      timeout: 5000,
+      timeoutMsg: 'wait for password field'
+    });
+  }
+
   async signIn({username, password}) {
     await (await this.username).setValue(username);
+
+    const passwordField = await this.password;
+    if (!await passwordField.isExisting()) {
+      await (await this.submit).click();
+      await this.waitUntilPasswordVisible();
+    }
+
     await (await this.password).setValue(password);
     await (await this.submit).click();
   }
