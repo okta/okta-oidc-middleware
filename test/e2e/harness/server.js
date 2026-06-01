@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-const express = require('express');
+const express = require(process.env.EXPRESS5 === '1' ? 'express5' : 'express4');
 const session = require('express-session');
 const uuid = require('uuid');
 const constants = require('../util/constants');
@@ -53,7 +53,9 @@ module.exports = class DemoServer {
       res.send(JSON.stringify(req.userContext));
     });
 
-    app.get('/*', oidc.ensureAuthenticated(), (req, res) => {
+    // https://expressjs.com/en/guide/migrating-5/#path-route-matching-syntax
+    const allPathsRegex = '/*' + (process.env.EXPRESS5 === '1' ? 'splat' : '');
+    app.get(allPathsRegex, oidc.ensureAuthenticated(), (req, res) => {
       res.send(JSON.stringify(req.userContext));
     });
 

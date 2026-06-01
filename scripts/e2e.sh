@@ -21,10 +21,21 @@ get_terminus_secret "/" PASSWORD PASSWORD
 export CI=true
 export DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-# Run the tests
+
+create_log_group "E2E: Express 4"
 if ! yarn test:e2e; then
   echo "e2e tests failed! Exiting..."
   exit ${TEST_FAILURE}
 fi
+finish_log_group $?
+
+
+create_log_group "E2E: Express 5"
+export EXPRESS5='1'
+if ! yarn test:e2e; then
+  echo "e2e tests failed! Exiting..."
+  exit ${TEST_FAILURE}
+fi
+finish_log_group $?
 
 exit ${PUBLISH_TYPE_AND_RESULT_DIR}
