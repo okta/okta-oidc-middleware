@@ -10,6 +10,18 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
+
+const Module = require('node:module');
+const originalRequire = Module.prototype.require;
+
+Module.prototype.require = function (id) {
+  if (id === 'express') {
+    const version = process.env.EXPRESS5 === '1' ? 'express5' : 'express4';
+    return originalRequire.apply(this, [version]);
+  }
+  return originalRequire.apply(this, arguments);
+}
+
 const express = require(process.env.EXPRESS5 === '1' ? 'express5' : 'express4');
 const session = require('express-session');
 const uuid = require('uuid');
