@@ -54,5 +54,5 @@ test_suites:
       sort_order: '5'
       timeout: '200'
       criteria: MAINLINE
-      queue_name: small
+      queue_name: al2023
       trigger: AUTO
