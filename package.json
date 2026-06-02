@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
+    "@types/express": "^5.0.6",
     "@wdio/cli": "^8.10.0",
     "@wdio/jasmine-framework": "^8.10.0",
     "@wdio/junit-reporter": "^8.10.0",
