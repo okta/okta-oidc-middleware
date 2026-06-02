@@ -1,7 +1,3 @@
-jest.mock('express', () => {
-  return jest.requireActual('express4');
-});
-
 const nock = require('nock');
 const request = require('supertest');
 const express = require('express');

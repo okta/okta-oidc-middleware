@@ -1,3 +1,8 @@
+# 6.0.0
+-[#99](https://github.com/okta/okta-oidc-middleware/pull/99) BREAKING: adds `express@5.x` support
+  - Moves `express` to a peer dependency (BREAKING)
+  - Upgrades minimum Node version support to 20 (BREAKING)
+
 # 5.5.1
 -[#93](https://github.com/okta/okta-oidc-middleware/pull/93) fix: upgrades `express` and `lodash` to resolve CVEs
 
