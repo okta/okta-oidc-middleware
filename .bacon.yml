@@ -12,7 +12,6 @@ test_suites:
       timeout: '10'
       script_name: unit
       criteria: MERGE
-      # a different container type is required to run node20
       queue_name: al2023
     - name: e2e
       script_path: /root/okta/okta-oidc-middleware/scripts
@@ -27,7 +26,6 @@ test_suites:
       timeout: '10'
       script_name: e2e
       criteria: MERGE
-      # a different container type is required to run node20
       queue_name: al2023
       script_env:
         NODE_VER: '20.5.0'
@@ -37,7 +35,6 @@ test_suites:
       timeout: '10'
       script_name: e2e
       criteria: MERGE
-      # a different container type is required to run node22
       queue_name: al2023
       script_env:
         NODE_VER: '22.5.1'
@@ -54,5 +51,5 @@ test_suites:
       sort_order: '5'
       timeout: '200'
       criteria: MAINLINE
-      queue_name: small
+      queue_name: al2023
       trigger: AUTO

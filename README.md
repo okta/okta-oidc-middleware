@@ -20,11 +20,15 @@ This package makes it easy to get your users logged in with Okta using OpenId Co
 
 This library uses semantic versioning and follows Okta's [library version policy](https://developer.okta.com/code/library-versions/).
 
-:heavy_check_mark: The current stable major version series is: 2.x
+:heavy_check_mark: The current stable major version series is: 6.x
 
 | Version | Status                    |
 | ------- | ------------------------- |
-| 2.x     | :heavy_check_mark: Stable |
+| 6.x     | :heavy_check_mark: Stable |
+| 5.x     | :x: Deprecated            |
+| 4.x     | :x: Deprecated            |
+| 3.x     | :x: Deprecated            |
+| 2.x     | :x: Deprecated            |
 | 1.x     | :x: Deprecated            |
 | 0.x     | :x: Retired               |
 
