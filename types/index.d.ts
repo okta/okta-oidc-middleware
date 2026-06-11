@@ -11,6 +11,8 @@
  */
 
 import { EventEmitter } from 'events';
+import { Agent as HttpAgent } from 'http';
+import { Agent as HttpsAgent } from 'https';
 import { RequestHandler, ErrorRequestHandler, Router } from 'express';
 import { UserinfoResponse, TokenSet } from 'openid-client';
 
@@ -252,6 +254,14 @@ export namespace ExpressOIDC {
      * @default 10000
      */
     timeout?: number;
+
+    /**
+     * Custom HTTP(S) agent used for server-side outbound HTTP requests to Okta.
+     * 
+     * This applies to OIDC discovery/client calls and token revocation requests.
+     * Browser redirects are not affected.
+     */
+    agent?: HttpAgent | HttpsAgent;
 
     /**
      * The property in your session which is used for storing information 

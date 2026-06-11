@@ -44,6 +44,7 @@ module.exports = class ExpressOIDC extends EventEmitter {
    * @param {string} [options.scope=openid] The scopes that will determine the claims on the tokens
    * @param {string} [options.response_type=code] The OpenId Connect response type
    * @param {number} [options.maxClockSkew=120] The maximum discrepancy allowed between server clocks in seconds
+   * @param {import('http').Agent | import('https').Agent} [options.agent] Custom HTTP(S) agent used for server-side outbound requests to Okta (browser redirects are not affected)
    * @param {Object} [options.testing] Testing overrides for disabling configuration validation
    * @param {Object} [options.routes]
    * @param {Object} [options.routes.login]

@@ -24,10 +24,10 @@ const makeErrorHandler = emitter => err => {
 const makeAuthorizationHeader = ({ client_id, client_secret }) => 
   'Basic ' + Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 
-const makeTokenRevoker = ({ issuer, client_id, client_secret, errorHandler }) => {
+const makeTokenRevoker = ({ issuer, client_id, client_secret, agent, errorHandler }) => {
   const revokeEndpoint = `${issuer}/v1/revoke`;
   return ({ token_hint, token }) => { 
-    return fetch(revokeEndpoint, { 
+    const options = { 
       method: 'POST',
       headers: { 
         'accepts': 'application/json',
@@ -35,7 +35,12 @@ const makeTokenRevoker = ({ issuer, client_id, client_secret, errorHandler }) =>
         'authorization': makeAuthorizationHeader({ client_id, client_secret }),
       },
       body: querystring.stringify({token, token_type_hint: token_hint}),
-    })
+    };
+
+    if (agent) {
+      options.agent = agent;
+    }
+    return fetch(revokeEndpoint, options)
       // eslint-disable-next-line promise/no-nesting
       .then( r => r.ok ? r : r.text().then((message) => {
         throw new OIDCMiddlewareError('revokeError', message);
@@ -47,13 +52,13 @@ const makeTokenRevoker = ({ issuer, client_id, client_secret, errorHandler }) =>
 
 logout.forceLogoutAndRevoke = context => { 
   const emitter = context.emitter;
-  let { issuer, client_id, client_secret } = context.options;
+  let { issuer, client_id, client_secret, agent } = context.options;
   const REVOKABLE_TOKENS = ['refresh_token', 'access_token'];
   // Support ORG Authorization Server
   if (issuer.indexOf('/oauth2') === -1) {
     issuer = issuer + '/oauth2';
   }
-  const revokeToken = makeTokenRevoker({ issuer, client_id, client_secret, errorHandler: makeErrorHandler(emitter) });
+  const revokeToken = makeTokenRevoker({ issuer, client_id, client_secret, agent, errorHandler: makeErrorHandler(emitter) });
   return async (req, res /*, next */) => {
     if (!req.userContext) {
       return res.sendStatus(401);
