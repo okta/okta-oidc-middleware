@@ -220,13 +220,27 @@ describe('new ExpressOIDC()', () => {
     expect(createInstance).toThrow(errorMsg);
   });
 
-  it('should set the HTTP timeout to 10 seconds', done => {
+  it('should set the HTTP timeout to 10 seconds and use the default agent', done => {
     mockWellKnown();
     new ExpressOIDC({
       ...minimumConfig
     })
     .on('ready', () => {
+      expect(Issuer[custom.http_options]().agent).toBeUndefined();
       expect(Issuer[custom.http_options]().timeout).toBe(10000);
+      done();
+    });
+  });
+
+  it('should pass the custom http(s) agent', done => {
+    const agent = { foo: 'bar' };
+    mockWellKnown();
+    new ExpressOIDC({
+      ...minimumConfig,
+      agent
+    })
+    .on('ready', () => {
+      expect(Issuer[custom.http_options]().agent).toEqual(agent);
       done();
     });
   });
