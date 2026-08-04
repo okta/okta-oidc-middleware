@@ -14,7 +14,6 @@ const express = require('express');
 const csrf = require('csrf-sync').csrfSync;
 const passport = require('passport');
 const { Router } = require('express');
-const uuid = require('uuid');
 const logout = require('./logout');
 const OIDCMiddlewareError = require('./OIDCMiddlewareError');
 
@@ -73,8 +72,8 @@ connectUtil.createLoginHandler = context => {
         if (err) {
           return next(err);
         }
-        const nonce = uuid.v4();
-        const state = uuid.v4();
+        const nonce = crypto.randomUUID();
+        const state = crypto.randomUUID();
         const params = {
           nonce,
           state,

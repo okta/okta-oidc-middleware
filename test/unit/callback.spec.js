@@ -2,7 +2,6 @@ const nock = require('nock');
 const request = require('supertest');
 const express = require('express');
 const session = require('express-session');
-const uuid = require('uuid');
 const cookieParser = require('cookie-parser');
 const OpenIdClient = require('openid-client');
 const OpenIDConnectStrategy = OpenIdClient.Strategy;
@@ -134,8 +133,8 @@ describe('callback', () => {
   }
 
   function setSession() {
-    nonce = uuid.v4();
-    state = uuid.v4();
+    nonce = crypto.randomUUID();
+    state = crypto.randomUUID();
 
     app.get('/set-session', (req, res) => {
       req.session[sessionKey] = {

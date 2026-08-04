@@ -19,7 +19,8 @@
     "ecmaVersion": 2017
   },
   "globals": {
-    "Promise": "readonly"
+    "Promise": "readonly",
+    "crypto": "readonly"
   },
   "rules": {
     "jasmine/new-line-before-expect": 0

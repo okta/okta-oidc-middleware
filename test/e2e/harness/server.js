@@ -24,7 +24,6 @@ Module.prototype.require = function (id) {
 
 const express = require(process.env.EXPRESS5 === '1' ? 'express5' : 'express4');
 const session = require('express-session');
-const uuid = require('uuid');
 const constants = require('../util/constants');
 const { ExpressOIDC } = require('../../../index.js');
 const path = require('path');
@@ -37,7 +36,7 @@ module.exports = class DemoServer {
     const app = express();
     this.app = app;
     app.use(session({
-      secret: uuid.v4(), // this will invalidate all sessions on each restart
+      secret: crypto.randomUUID(), // this will invalidate all sessions on each restart
       resave: true,
       saveUninitialized: false
     }));
