@@ -22,7 +22,6 @@ module.exports = {
     legacyFakeTimers: true
   },
   moduleNameMapper: {
-    '^express$': process.env.EXPRESS5 === '1' ? '<rootDir>/node_modules/express5' : '<rootDir>/node_modules/express4',
-    'uuid': '<rootDir>/node_modules/uuid/dist/index.js'
+    '^express$': process.env.EXPRESS5 === '1' ? '<rootDir>/node_modules/express5' : '<rootDir>/node_modules/express4'
   }
 };

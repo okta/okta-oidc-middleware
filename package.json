@@ -43,12 +43,11 @@
   "dependencies": {
     "@okta/configuration-validation": "^0.4.1",
     "csrf-sync": "^4.0.3",
-    "lodash": "^4.17.23",
+    "lodash": "^4.18.1",
     "negotiator": "^0.6.3",
     "node-fetch": "^2.6.13",
     "openid-client": "^5.6.5",
-    "passport": "^0.7.0",
-    "uuid": "^9.0.1"
+    "passport": "^0.7.0"
   },
   "peerDependencies": {
     "express": "^4.22.1 || ^5.x"
