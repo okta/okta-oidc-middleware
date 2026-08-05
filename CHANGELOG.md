@@ -1,4 +1,6 @@
 # 6.1.0
+-[#97](https://github.com/okta/okta-oidc-middleware/pull/97) feat: adds `agent` option to streamline Http Agent usage
+  - Authored by [https://github.com/RyanGallagher44](https://github.com/RyanGallagher44) via [#94](https://github.com/okta/okta-oidc-middleware/pull/94)
 -[#107](https://github.com/okta/okta-oidc-middleware/pull/107) fix: deps update
   - upgrades `lodash` to `4.18.1` resolve CVE
   - replaces `uuid` package with native `crypto.randomUUID`

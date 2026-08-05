@@ -68,11 +68,15 @@ oidcUtil.createClient = context => {
     client_secret,
     loginRedirectUri: redirect_uri,
     maxClockSkew,
+    agent,
     timeout
   } = context.options;
 
   Issuer[custom.http_options] = function(_, options) {
     options = customizeUserAgent(options);
+    if (agent) {
+      options.agent = agent;
+    }
     options.timeout = timeout || 10000;
     return options;
   };
@@ -89,6 +93,9 @@ oidcUtil.createClient = context => {
 
     client[custom.http_options] = (options) => {
       options = customizeUserAgent(options);
+      if (agent) {
+        options.agent = agent;
+      }
       options.timeout = timeout || 10000;
       return options;
     };
