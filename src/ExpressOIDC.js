@@ -16,13 +16,15 @@ const oidcUtil = require('./oidcUtil');
 const connectUtil = require('./connectUtil');
 const logout = require('./logout');
 
-const {
-  assertIssuer,
-  assertClientId,
-  assertClientSecret,
-  assertAppBaseUrl,
-  assertRedirectUri
-} = require('@okta/configuration-validation');
+
+const missingParamInstruction = 'You can copy it from the Okta Developer Console ' +
+'in the details for the Application you created. Follow these instructions to ' +
+'find it: https://bit.ly/finding-okta-app-credentials';
+
+const missingIssuerInstruction = 'You can copy your domain from the Okta Developer Console. ' +
+'Follow these instructions to find it: https://bit.ly/finding-okta-domain';
+
+const hasDomainAdmin = /-admin\.(okta|oktapreview|okta-emea)\.com/;
 
 /**
  * Class to easily integrate OpenId Connect with Express
@@ -68,16 +70,51 @@ module.exports = class ExpressOIDC extends EventEmitter {
     } = options;
 
     // Validate the issuer param
-    assertIssuer(issuer, options.testing);
+    let iss;
+    try {
+      iss = new URL(issuer)
+    }
+    catch (err) {
+      if (!issuer) {
+        throw new TypeError(`Your Okta URL is missing. ${missingIssuerInstruction}`)
+      }
+
+      throw new TypeError('Your issuer must be a valid URL.');
+    }
+
+    if (options?.testing?.disableHttpsCheck) {
+      console.warn('Warning: HTTPS check is disabled. This allows for insecure configurations and is NOT recommended for production use.');
+    }
+    else if (iss.protocol !== 'https:') {
+      throw new TypeError(`Your Okta URL must start with https. Current value: ${issuer}. ${missingIssuerInstruction}`);
+    }
+
+    if (iss.origin.match(hasDomainAdmin)) {
+      throw new TypeError(`Your Okta domain should not contain -admin. Current value: ${issuer}. ${missingIssuerInstruction}`)
+    }
+
+    options.issuer = iss.href;
 
     // Validate the client_id param
-    assertClientId(client_id);
+    if (!client_id) {
+      throw new TypeError(`Your client ID is missing. ${missingParamInstruction}`);
+    }
 
     // Validate the client_secret param
-    assertClientSecret(client_secret);
+    if (!client_secret) {
+      throw new TypeError(`Your client secret is missing. ${missingParamInstruction}`);
+    }
 
-    // Validate the appBaseUrl param
-    assertAppBaseUrl(appBaseUrl);
+    try {
+      options.appBaseUrl = (new URL(appBaseUrl)).href;
+    }
+    catch (err) {
+      if (!appBaseUrl) {
+        throw new TypeError('Your appBaseUrl is missing.');
+      }
+
+      throw new TypeError('Your appBaseUrl must be a valid URL.');
+    }
 
     // Add defaults to the options
     options = merge({
@@ -102,11 +139,13 @@ module.exports = class ExpressOIDC extends EventEmitter {
     }, options);
 
     // Build redirect uri unless explicitly set
-    options.loginRedirectUri = loginRedirectUri || `${appBaseUrl}${options.routes.loginCallback.path}`;
-    options.logoutRedirectUri = logoutRedirectUri || `${appBaseUrl}${options.routes.logoutCallback.path}`;
+    options.loginRedirectUri = loginRedirectUri || (new URL(options.routes.loginCallback.path, options.appBaseUrl)).href;
+    options.logoutRedirectUri = logoutRedirectUri || (new URL(options.routes.logoutCallback.path, options.appBaseUrl)).href;
 
     // Validate the redirect_uri param
-    assertRedirectUri(options.loginRedirectUri);
+    if (!options.loginRedirectUri) {
+      throw new TypeError('Missing configuration `loginRedirectUri`');
+    }
 
     const context = {
       options,

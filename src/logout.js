@@ -9,7 +9,6 @@
  *
  * See the License for the specific language governing permissions and limitations under the License.
  */
-const fetch = require('node-fetch');
 const querystring = require('querystring');
 const OIDCMiddlewareError = require('./OIDCMiddlewareError');
 const logout = module.exports;

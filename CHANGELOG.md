@@ -1,12 +1,15 @@
+# 6.0.1
+* [#109](https://github.com/okta/okta-oidc-middleware/pull/109) fix: removes `@okta/configuration-validator` dependency to resolve `lodash` CVE
+
 # 6.0.0
--[#97](https://github.com/okta/okta-oidc-middleware/pull/97) feat: adds `agent` option to streamline Http Agent usage
-  - Authored by [https://github.com/RyanGallagher44](https://github.com/RyanGallagher44) via [#94](https://github.com/okta/okta-oidc-middleware/pull/94)
--[#107](https://github.com/okta/okta-oidc-middleware/pull/107) fix: deps update
-  - upgrades `lodash` to `4.18.1` resolve CVE
-  - replaces `uuid` package with native `crypto.randomUUID`
--[#99](https://github.com/okta/okta-oidc-middleware/pull/99) BREAKING: adds `express@5.x` support
+* [#99](https://github.com/okta/okta-oidc-middleware/pull/99) BREAKING: adds `express@5.x` support
   - Moves `express` to a peer dependency (BREAKING)
   - Upgrades minimum Node version support to 20 (BREAKING)
+* [#97](https://github.com/okta/okta-oidc-middleware/pull/97) feat: adds `agent` option to streamline Http Agent usage
+  - Authored by [https://github.com/RyanGallagher44](https://github.com/RyanGallagher44) via [#94](https://github.com/okta/okta-oidc-middleware/pull/94)
+* [#107](https://github.com/okta/okta-oidc-middleware/pull/107) fix: deps update
+  - upgrades `lodash` to `4.18.1` resolve CVE
+  - replaces `uuid` package with native `crypto.randomUUID`
 
 # 5.5.1
 -[#93](https://github.com/okta/okta-oidc-middleware/pull/93) fix: upgrades `express` and `lodash` to resolve CVEs
