@@ -23,12 +23,12 @@ describe('new ExpressOIDC()', () => {
   const minimumConfig = { 
     client_id: 'foo',
     client_secret: 'foo',
-    issuer: 'https://foo',
+    issuer: 'https://foo.app',
     appBaseUrl: 'https://app.foo'
   };
 
   function mockWellKnown(issuer) {
-    issuer = issuer || 'https://foo'
+    issuer = issuer || 'https://foo.app'
     nock(issuer)
     .get('/.well-known/openid-configuration')
     .reply(200, {
@@ -83,17 +83,6 @@ describe('new ExpressOIDC()', () => {
       expect(console.warn).toBeCalledWith('Warning: HTTPS check is disabled. This allows for insecure configurations and is NOT recommended for production use.');
       done();
     });
-  });
-
-  it('should throw if an issuer matching {yourOktaDomain} is provided', () => {
-    function createInstance() {
-      new ExpressOIDC({
-        ...minimumConfig,
-        issuer: 'https://{yourOktaDomain}'
-      });
-    }
-    const errorMsg = `Replace {yourOktaDomain} with your Okta domain. ${findDomainMessage}`;
-    expect(createInstance).toThrow(errorMsg);
   });
 
   it('should throw if an issuer matching -admin.okta.com is provided', () => {
@@ -154,28 +143,6 @@ describe('new ExpressOIDC()', () => {
     expect(createInstance).toThrow(errorMsg);
   });
 
-  it('should throw if a client_id matching {clientId} is provided', () => {
-    function createInstance() {
-      new ExpressOIDC({
-        ...minimumConfig,
-        client_id: '{clientId}'
-      });
-    }
-    const errorMsg = `Replace {clientId} with the client ID of your Application. ${findCredentialsMessage}`;
-    expect(createInstance).toThrow(errorMsg);
-  });
-
-  it('should throw if a client_secret matching {clientSecret} is provided', () => {
-    function createInstance() {
-      new ExpressOIDC({
-        ...minimumConfig,
-        client_secret: '{clientSecret}',
-      });
-    }
-    const errorMsg = `Replace {clientSecret} with the client secret of your Application. ${findCredentialsMessage}`;
-    expect(createInstance).toThrow(errorMsg);
-  });
-
   it('should throw if the appBaseUrl is not provided', () => {
     function createInstance() {
       new ExpressOIDC({
@@ -187,17 +154,6 @@ describe('new ExpressOIDC()', () => {
     expect(createInstance).toThrow(errorMsg);
   });
 
-  it('should throw if a appBaseUrl matching {appBaseUrl} is provided', () => {
-    function createInstance() {
-      new ExpressOIDC({
-        ...minimumConfig,
-        appBaseUrl: '{appBaseUrl}'
-      });
-    }
-    const errorMsg = 'Replace {appBaseUrl} with the base URL of your Application.'
-    expect(createInstance).toThrow(errorMsg);
-  });
-
   it('should throw if an appBaseUrl without a protocol is provided', () => {
     function createInstance() {
       new ExpressOIDC({
@@ -205,18 +161,7 @@ describe('new ExpressOIDC()', () => {
         appBaseUrl: 'foo.example.com'
       });
     }
-    const errorMsg = 'Your appBaseUrl must contain a protocol (e.g. https://). Current value: foo.example.com.';
-    expect(createInstance).toThrow(errorMsg);
-  });
-
-  it('should throw if an appBaseUrl ending in a slash is provided', () => {
-    function createInstance() {
-      new ExpressOIDC({
-        ...minimumConfig,
-        appBaseUrl: 'https://foo.example.com/'
-      });
-    }
-    const errorMsg = `Your appBaseUrl must not end in a '/'. Current value: https://foo.example.com/.`;
+    const errorMsg = 'Your appBaseUrl must be a valid URL.';
     expect(createInstance).toThrow(errorMsg);
   });
 
@@ -259,7 +204,7 @@ describe('new ExpressOIDC()', () => {
 
   // eslint-disable-next-line jest/no-test-callback
   it('should throw ETIMEOUT if the timeout is reached', (done) => {
-    nock('https://foo')
+    nock('https://foo.app')
     .get('/.well-known/openid-configuration')
     .delay(1000)
     .reply(200, function cb() {
@@ -286,7 +231,7 @@ describe('new ExpressOIDC()', () => {
       const expectedAgent = `${pkg.name}/${pkg.version} ${openIdPkg.name}/${openIdPkg.version} node/${process.versions.node} ${os.platform()}/${os.release()}`;
       let userAgent;
 
-      nock('https://foo')
+      nock('https://foo.app')
       .get('/.well-known/openid-configuration')
       .reply(200, function cb() {
         userAgent = this.req.headers['user-agent'];

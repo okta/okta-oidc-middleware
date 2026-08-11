@@ -81,7 +81,7 @@ oidcUtil.createClient = context => {
     return options;
   };
 
-  return Issuer.discover(issuer +  '/.well-known/openid-configuration')
+  return Issuer.discover((new URL('/.well-known/openid-configuration', issuer)).href)
   .then((iss) => {
     const client = new iss.Client({
       client_id,
@@ -160,7 +160,7 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
         let url = options.redirectTo;
         if (!url) {
           const loginPath = context.options.routes.login.path;
-          url = (new URL(loginPath[0] === '/' ? `.${loginPath}` : `/${loginPath}`, context.options.appBaseUrl + '/')).href;
+          url = (new URL(loginPath[0] === '/' ? `.${loginPath}` : `/${loginPath}`, context.options.appBaseUrl)).href;
         }
         return res.redirect(appendOptionsToQuery(url, options));
       }
