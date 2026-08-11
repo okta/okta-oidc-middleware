@@ -9,7 +9,7 @@ const OpenIDConnectStrategy = OpenIdClient.Strategy;
 const { ExpressOIDC } = require('../../index.js');
 
 describe('callback', () => {
-  const issuer = 'https://foo';
+  const issuer = 'https://foo.app';
   const tokenPath = '/oauth2/v1/token';
   const authorizePath = '/oauth2/v1/authorize';
   const tokenEndpoint = `${issuer}${tokenPath}`;
@@ -19,7 +19,7 @@ describe('callback', () => {
   const minimumConfig = { 
     client_id: 'foo',
     client_secret: 'foo',
-    issuer: 'https://foo',
+    issuer: 'https://foo.app',
     appBaseUrl: 'https://app.foo',
     sessionKey
   };
@@ -201,7 +201,7 @@ describe('callback', () => {
         .expect(302)
         .end(function(err, res){
           if (err) return reject(err);
-          expect(res.headers.location).toBe('https://foo/oauth2/v1/authorize?client_id=foo&scope=openid&response_type=code&redirect_uri=https%3A%2F%2Fapp.foo%2Flogin%2Fcallback&state=STATE');
+          expect(res.headers.location).toBe('https://foo.app/oauth2/v1/authorize?client_id=foo&scope=openid&response_type=code&redirect_uri=https%3A%2F%2Fapp.foo%2Flogin%2Fcallback&state=STATE');
           nock.cleanAll();
           resolve()
         });

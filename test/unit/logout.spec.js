@@ -1,7 +1,3 @@
-
-jest.mock('node-fetch');
-const nodeFetch = require('node-fetch');
-
 const { forceLogoutAndRevoke } = require('../../src/logout');
 
 describe('logout', () => {
@@ -41,8 +37,8 @@ describe('logout', () => {
         fetch = jest.fn().mockImplementation(() => {
           return fetchResponse;
         });
-        nodeFetch.mockImplementation(fetch);
-    
+        global.fetch = fetch;
+
         context = {
           options: {
             issuer,
