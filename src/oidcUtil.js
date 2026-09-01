@@ -61,6 +61,14 @@ function appendOptionsToQuery(url, options) {
   return url;
 }
 
+// A leading slash is origin-relative, so "/.well-known/..." would drop an
+// issuer path such as /oauth2/default. Resolve a relative well-known suffix
+// against a trailing-slash base instead.
+function getDiscoveryUrl(issuer) {
+  const base = issuer.endsWith('/') ? issuer : `${issuer}/`;
+  return new URL('.well-known/openid-configuration', base).href;
+}
+
 oidcUtil.createClient = context => {
   const {
     issuer,
@@ -81,7 +89,7 @@ oidcUtil.createClient = context => {
     return options;
   };
 
-  return Issuer.discover((new URL('/.well-known/openid-configuration', issuer)).href)
+  return Issuer.discover(getDiscoveryUrl(issuer))
   .then((iss) => {
     const client = new iss.Client({
       client_id,

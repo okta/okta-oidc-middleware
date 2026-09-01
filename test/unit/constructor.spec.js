@@ -202,6 +202,45 @@ describe('new ExpressOIDC()', () => {
     });
   });
 
+  it('should keep a custom authorization server path in the discovery URL', done => {
+    const issuer = 'https://foo.app/oauth2/default';
+    nock('https://foo.app')
+    .get('/oauth2/default/.well-known/openid-configuration')
+    .reply(200, {
+      issuer
+    });
+    new ExpressOIDC({
+      ...minimumConfig,
+      issuer
+    })
+    .on('error', (e) => {
+      done(e);
+    })
+    .on('ready', () => {
+      expect(nock.isDone()).toBe(true);
+      done();
+    });
+  });
+
+  it('should keep a trailing-slash issuer path in the discovery URL', done => {
+    nock('https://foo.app')
+    .get('/oauth2/default/.well-known/openid-configuration')
+    .reply(200, {
+      issuer: 'https://foo.app/oauth2/default'
+    });
+    new ExpressOIDC({
+      ...minimumConfig,
+      issuer: 'https://foo.app/oauth2/default/'
+    })
+    .on('error', (e) => {
+      done(e);
+    })
+    .on('ready', () => {
+      expect(nock.isDone()).toBe(true);
+      done();
+    });
+  });
+
   // eslint-disable-next-line jest/no-test-callback
   it('should throw ETIMEOUT if the timeout is reached', (done) => {
     nock('https://foo.app')
