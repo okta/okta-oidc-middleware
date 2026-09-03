@@ -177,6 +177,17 @@ describe('new ExpressOIDC()', () => {
     });
   });
 
+  it('should preserve the issuer path when building the discovery URL', done => {
+    const issuer = 'https://foo.app/oauth2/default';
+    mockWellKnown(issuer);
+    new ExpressOIDC({
+      ...minimumConfig,
+      issuer
+    })
+    .on('ready', done)
+    .on('error', done);
+  });
+
   it('should pass the custom http(s) agent', done => {
     const agent = { foo: 'bar' };
     mockWellKnown();
