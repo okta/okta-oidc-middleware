@@ -196,6 +196,25 @@ describe('new ExpressOIDC()', () => {
     });
   });
 
+  it('should preserve the issuer path when building the discovery URL (with trailing slash)', done => {
+    const issuer = 'https://foo.app/oauth2/default/';
+    const discoverSpy = jest.spyOn(Issuer, 'discover');
+    mockWellKnown(issuer);
+    new ExpressOIDC({
+      ...minimumConfig,
+      issuer
+    })
+    .on('ready', () => {
+      expect(discoverSpy).toHaveBeenCalledWith(`${issuer}.well-known/openid-configuration`);
+      discoverSpy.mockRestore();
+      done();
+    })
+    .on('error', (e) => {
+      discoverSpy.mockRestore();
+      done(e);
+    });
+  });
+
   it('should pass the custom http(s) agent', done => {
     const agent = { foo: 'bar' };
     mockWellKnown();
