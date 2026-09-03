@@ -1,3 +1,6 @@
+# 6.0.2
+* [#113](https://github.com/okta/okta-oidc-middleware/pull/113) fix: fixes issue with `issuer` URLs with trailing slashes building discovery URls
+
 # 6.0.1
 * [#109](https://github.com/okta/okta-oidc-middleware/pull/109) fix: removes `@okta/configuration-validator` dependency to resolve `lodash` CVE
 
