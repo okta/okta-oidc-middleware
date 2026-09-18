@@ -81,7 +81,8 @@ oidcUtil.createClient = context => {
     return options;
   };
 
-  return Issuer.discover((new URL('/.well-known/openid-configuration', issuer)).href)
+  const issuerBase = issuer.endsWith('/') ? issuer : `${issuer}/`;
+  return Issuer.discover((new URL('.well-known/openid-configuration', issuerBase)).href)
   .then((iss) => {
     const client = new iss.Client({
       client_id,
