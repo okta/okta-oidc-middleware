@@ -2,7 +2,7 @@
 
 [![Support](https://img.shields.io/badge/support-developer%20forum-blue.svg)][devforum]
 [![npm version](https://img.shields.io/npm/v/@okta/oidc-middleware.svg?style=flat-square)](https://www.npmjs.com/package/@okta/oidc-middleware)
-[![build status](https://img.shields.io/travis/okta/okta-oidc-js/master.svg?style=flat-square)](https://travis-ci.org/okta/okta-oidc-js)
+[![build status](https://app.travis-ci.com/okta/okta-oidc-middleware.svg?token=dZSkUxSbJe3YG4tQr2yo&branch=master)](https://app.travis-ci.com/github/okta/okta-oidc-middleware)
 
 # Okta NodeJS OIDC Middleware
 
